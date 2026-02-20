@@ -1,6 +1,10 @@
 #pragma once
 #include <stdlib.h>
 
+// jak chcesz zmienić typ to se walisz nowy plik i replace int na typ i bum templaty XD
+// teoretycznie da się zrobić to na karzdy typ ale troche z tym pierdolenia i nie chce mi sie
+// morzna dodać funkcje do wektora ale nwm czy to jest warte pamięci
+
 typedef struct {
     int *data;
     int size;
@@ -62,12 +66,9 @@ void vector_int_pop_back(vector_int *vec){
     }
 }
 
-// vector get_vector(){
-//     vector vec;
-//     return vec;
-// }
-
-
-// vector Vector;
-// Vector.get = get_vector; // must be in func
-
+void vector_int_delete(vector_int *vec, int index){
+    if(index < vec->size && index>=0){
+        memmove(&vec->data[index], &vec->data[index + 1], (vec->size - index - 1) * sizeof(int));
+        vec->size--;
+    }
+}
