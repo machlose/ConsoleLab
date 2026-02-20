@@ -1,6 +1,6 @@
 #include "ConsoleLab.c"
 
 int main() {
-    ConsoleLab consoleLab = ConsoleLabInit();
+    ConsoleLab consoleLab = ConsoleLab_Init();
     return 0;
 }
