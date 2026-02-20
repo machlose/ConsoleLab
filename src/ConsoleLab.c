@@ -10,13 +10,10 @@ typedef struct {
 
 void example(){
     vector vec = vector_create(1024, sizeof(int));
-    printf("dupsko\n");
     ((int*)vec.data)[2] = 67;
-    printf("dupsko\n");
     int x = ((int*)vec.data)[2];
     ((int*)vec.data)[2] = 42;
     printf("%d\n", x);
-    printf("dupsko\n");
     vector_free(&vec);
 }
 
