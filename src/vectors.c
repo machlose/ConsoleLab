@@ -2,6 +2,7 @@
 #include "vectors/vec_int.c"
 #include "vectors/vec_float.c"
 #include "vectors/vector_int.c"
+#include "vectors/vector.c"
 
 // union robi że dane współdzielą miejsce w pamięci dzięki czemu np. vec2.x == vec2.i[0] == vec2.w == vec2.width
 // typedef union {

@@ -2,14 +2,14 @@
 #include <stdlib.h>
 
 // jak chcesz zmienić typ to se walisz nowy plik i replace int na typ i bum templaty XD
-// teoretycznie da się zrobić to na karzdy typ ale troche z tym pierdolenia i nie chce mi sie
+// teoretycznie da się zrobić to na karzdy typ ale troche z tym pierdolenia i nie chce mi sie // wsm to nie
 // morzna dodać funkcje do wektora ale nwm czy to jest warte pamięci
 
 typedef struct {
     int *data;
-    int size;
-    int capacity;
-    int step;
+    size_t size;
+    size_t capacity;
+    size_t step;
 } vector_int;
 
 void vector_int_malloc(vector_int *vec){
@@ -27,7 +27,7 @@ void vector_int_copy(vector_int *vec, const vector_int *other){
     }
 }
 
-vector_int vector_int_init(int capacity){
+vector_int vector_int_init(size_t capacity){
     vector_int vec;
     vec.capacity = capacity;
     vec.size = 0;
@@ -36,11 +36,11 @@ vector_int vector_int_init(int capacity){
     return vec;
 }
 
-void vector_int_change_step(vector_int *vec, int step){
+void vector_int_change_step(vector_int *vec, size_t step){
     vec->step = step;
 }
 
-void vector_int_resize(vector_int *vec, int size){
+void vector_int_resize(vector_int *vec, size_t size){
     if(size >= vec->size){
         vector_int new = vector_int_init(size);
         vector_int_copy(&new, vec);
@@ -66,8 +66,8 @@ void vector_int_pop_back(vector_int *vec){
     }
 }
 
-void vector_int_delete(vector_int *vec, int index){
-    if(index < vec->size && index>=0){
+void vector_int_delete(vector_int *vec, size_t index){
+    if(index < vec->size){
         memmove(&vec->data[index], &vec->data[index + 1], (vec->size - index - 1) * sizeof(int));
         vec->size--;
     }
