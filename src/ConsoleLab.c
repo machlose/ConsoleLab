@@ -1,6 +1,6 @@
 #pragma once
 #include "lib.c"
-#include "types.c"
+#include "vectors.c"
 
 typedef struct {
     vec2 (*vec2)(int, int);
