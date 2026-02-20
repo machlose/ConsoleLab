@@ -14,6 +14,8 @@ void example(){
     int x = ((int*)vec.data)[2];
     ((int*)vec.data)[2] = 42;
     printf("%d\n", x);
+    x = ((int*)vec.data)[2];
+    printf("%d\n", x);
     vector_free(&vec);
 }
 
