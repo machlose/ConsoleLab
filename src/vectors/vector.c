@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h>
+#include <string.h>
 
 #define true 1
 #define false 0
@@ -43,7 +44,7 @@ vector vector_create(size_t capacity, size_t element_size){
     return vec;
 }
 
-void vector_change_step(vector *vec, size_t step){
+void vector_change_step(vector *vec, size_t step){//useles
     vec->step = step;
 }
 
@@ -92,6 +93,17 @@ void vector_delete(vector *vec, size_t index){
     }
 }
 
+void vector_delete_range(vector *vec, size_t index, size_t elements){
+    if(index < vec->size && vec->size >= elements && elements > 0){
+        memmove((char*)vec->data + index * vec->element_size, (char*)vec->data + (index + elements) * vec->element_size, (vec->size - index - elements) * vec->element_size);
+        vec->size--;
+    }
+}
+
+void vector_erase(vector *vec){
+    vector_delete_range(vec, 0, vec->size);
+}
+
 //wypierdala program XD
 // void* vector_get(vector *vec, size_t index){
 //     if(index < vec->size){
@@ -114,3 +126,19 @@ void vector_insert(vector *vec, size_t index, void* value){
         vec->size++;
     }
 }
+
+typedef struct {
+    vector (*create)(size_t, size_t);
+    void (*free)(vector*);
+    void (*erase)(vector*);
+    int (*malloc)(vector*);
+    void (*copy)(vector*, vector*);
+    int (*resize)(vector*, size_t);
+    void (*push_back)(vector*, void*);
+    void (*pop_back)(vector*);
+    void (*delete)(vector*, size_t);
+    void (*delete_range)(vector*, size_t, size_t);
+    void (*set)(vector*, size_t, void*);
+    void (*insert)(vector*, size_t, void*);
+    // int (*init)(vector *, size_t, size_t);
+} ConsoleLabVectorAPI;
