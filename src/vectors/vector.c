@@ -57,19 +57,20 @@ void vector_change_step(vector *vec, size_t step){
 //     }
 // }
 
-void vector_resize(vector *vec, size_t new_size){
+bool vector_resize(vector *vec, size_t new_size){
     if(new_size > vec->size){
         void* new_data = realloc(vec->data, new_size * vec->element_size);
         if(new_data){
             vec->data = new_data;
             vec->capacity = new_size;
+            return true;
         }
+        return false;
     }
 }
 
 void vector_push_back(vector *vec, void *value){
     if (vec->size < vec->capacity){
-        // vec->data[vec->size] = x;
         memcpy((char*)vec->data + vec->size * vec->element_size, value, vec->element_size);
         vec->size++;
     } else{
