@@ -132,7 +132,7 @@ typedef struct {
     void (*free)(vector*);
     void (*erase)(vector*);
     int (*malloc)(vector*);
-    void (*copy)(vector*, vector*);
+    void (*copy)(vector*, const vector*);
     int (*resize)(vector*, size_t);
     void (*push_back)(vector*, void*);
     void (*pop_back)(vector*);

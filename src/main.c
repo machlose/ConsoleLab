@@ -2,7 +2,7 @@
 #include "test.c"
 
 int main() {
-    test();
     ConsoleLab_Init();
+    test();
     return 0;
 }
