@@ -1,6 +1,10 @@
 #pragma once
 #include <stdlib.h>
 
+typedef int bool;
+#define true 1
+#define false 0
+
 typedef struct {
     void *data;
     size_t size;
@@ -9,17 +13,9 @@ typedef struct {
     size_t element_size; // liczba bajtów np sizeof(int) = 4 jesli chcesz inta itp
 } vector;
 
-// void example(){
-//     vector vec = vector_create(1024, sizeof(int));
-//     ((int*)vec.data)[2] = 67;
-
-//     int *p = (int*)vector_get(&vec, 2);
-//     printf("%d\n", *p);
-// }
-// nie kompiluj z tym bo ci nie znajdzie funkcji
-
-void vector_malloc(vector *vec){
+bool vector_malloc(vector *vec){
     vec->data = malloc(vec->element_size * vec->capacity);
+    return vec->data != NULL; 
 }
 
 void vector_free(vector *vec){
@@ -36,20 +32,16 @@ void vector_copy(vector *vec, const vector *other){
 
 vector vector_create(size_t capacity, size_t element_size){
     vector vec;
-    vec.capacity = capacity;
-    vec.size = 0;
-    vec.step = 1024;
-    vec.element_size = element_size;
-    vector_malloc(&vec);
+    vector_init(&vec, capacity, element_size);
     return vec;
 }
 
-void vector_init(vector *vec, size_t capacity, size_t element_size){
+bool vector_init(vector *vec, size_t capacity, size_t element_size){
     vec->capacity = capacity;
     vec->size = 0;
     vec->step = 1024;
     vec->element_size = element_size;
-    vector_malloc(vec);
+    return vector_malloc(vec);
 }
 
 void vector_change_step(vector *vec, size_t step){
@@ -65,9 +57,13 @@ void vector_change_step(vector *vec, size_t step){
 //     }
 // }
 
-void vector_resize(vector *vec, size_t size){
-    if(size > vec->size){
-        vec->data = realloc(vec->data, size * vec->element_size);
+void vector_resize(vector *vec, size_t new_size){
+    if(new_size > vec->size){
+        void* new_data = realloc(vec->data, new_size * vec->element_size);
+        if(new_data){
+            vec->data = new_data;
+            vec->capacity = new_size;
+        }
     }
 }
 
@@ -106,12 +102,15 @@ void vector_delete(vector *vec, size_t index){
 // }
 
 void vector_set(vector *vec, size_t index, void* value){
-    memcpy((char*)vec->data + index * vec->element_size, value, vec->element_size);
+    if(index < vec->size){
+        memcpy((char*)vec->data + index * vec->element_size, value, vec->element_size);
+    }
 }
 
 void vector_insert(vector *vec, size_t index, void* value){
     if(index < vec->size && vec->size+1 < vec->capacity){
         memmove((char*)vec->data + (index + 1) * vec->element_size, (char*)vec->data + index * vec->element_size, (vec->size - index) * vec->element_size);
         memcpy((char*)vec->data + index * vec->element_size, value, vec->element_size);
+        vec->size++;
     }
 }
