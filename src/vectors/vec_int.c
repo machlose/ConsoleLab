@@ -21,6 +21,11 @@ typedef union {
     int i[4];
 } vec4;
 
+vec2 vec2_init(vec2 vec, int x, int y){
+    vec.x = x;
+    vec.y = y;
+}
+
 vec2 vec2_add(vec2 a, vec2 b){
     vec2 c;
     c.x = a.x + b.x;

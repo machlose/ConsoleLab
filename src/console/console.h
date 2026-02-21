@@ -5,10 +5,18 @@
 #include "console_unix.c"
 #endif
 
+#include "flags.c"
+
 #ifdef _cplusplus
 extern "C" {
 #endif
 
+typedef vec2 ScreenSize;
+
+typedef struct {
+    HANDLE hOut;
+    HANDLE hIn;
+} ConsoleLabConsoleAPI;
 
 
 

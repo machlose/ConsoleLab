@@ -1,7 +1,12 @@
 #pragma once
 #ifdef _WIN32
 
-#include "console.h"
 #include <windows.h>
+#include "console.h"
+#include "vectors/vec_int.c"
+
+
+
+
 
 #endif
