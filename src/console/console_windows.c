@@ -4,19 +4,23 @@
 #include "console.h"
 
 void console_init(){
-    ConsoleData.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    ConsoleData.hIn  = GetStdHandle(STD_INPUT_HANDLE);
-    
-    DWORD mode;
-    GetConsoleMode(ConsoleData.hIn, &mode);
-    mode |=  ENABLE_MOUSE_INPUT;
-    mode |=  ENABLE_WINDOW_INPUT;
-    SetConsoleMode(ConsoleData.hIn, mode);
+    printf("1");
+    // ConsoleData.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    // ConsoleData.hIn  = GetStdHandle(STD_INPUT_HANDLE);
+    // printf("2");
 
-    CONSOLE_CURSOR_INFO cci = { 1, FALSE };
-    SetConsoleCursorInfo(ConsoleData.hOut, &cci);
+    // DWORD mode;
+    // GetConsoleMode(ConsoleData.hIn, &mode);
+    // mode |=  ENABLE_MOUSE_INPUT;
+    // mode |=  ENABLE_WINDOW_INPUT;
+    // SetConsoleMode(ConsoleData.hIn, mode);
+    // printf("3");
 
-    ConsoleData.screenSize = console_getScreenSize();
+    // CONSOLE_CURSOR_INFO cci = { 1, FALSE };
+    // SetConsoleCursorInfo(ConsoleData.hOut, &cci);
+    // printf("4");
+    // ConsoleData.screenSize = console_getScreenSize();
+    // printf("5");
 }
 
 vec2 console_getScreenSize() {
