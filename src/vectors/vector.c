@@ -1,7 +1,7 @@
 #pragma once
 #include <stdlib.h>
 #include <string.h>
-#include "flags.c"
+#include "../flags.c"
 
 #define true 1
 #define false 0
@@ -30,26 +30,8 @@ typedef struct {
     // int (*init)(vector *, size_t, size_t);
 } ConsoleLabVectorAPI;
 
-void ConsoleLabVectorInit(ConsoleLabVectorAPI *Vector){
-    Vector->create = vector_create;
-    Vector->free = vector_free;
-    Vector->erase = vector_erase;
-    Vector->malloc = vector_malloc;
-    Vector->copy = vector_copy;
-    Vector->resize = vector_resize;
-    Vector->push_back = vector_push_back;
-    Vector->pop_back = vector_pop_back;
-    Vector->delete = vector_delete;
-    Vector->delete_range = vector_delete_range;
-    Vector->set = vector_set;
-    Vector->insert = vector_insert;
-}
-
 #ifdef ConsoleLabGlobalVector
 ConsoleLabVectorAPI Vector;
-void GlobalConsoleLabVectorInitWrapper(){
-    ConsoleLabVectorInit(&Vector);
-}
 #endif
 
 int vector_malloc(vector *vec){
@@ -164,4 +146,19 @@ void vector_insert(vector *vec, size_t index, void* value){
         memcpy((char*)vec->data + index * vec->element_size, value, vec->element_size);
         vec->size++;
     }
+}
+
+void ConsoleLabVectorInit(ConsoleLabVectorAPI *Vector){
+    Vector->create = vector_create;
+    Vector->free = vector_free;
+    Vector->erase = vector_erase;
+    Vector->malloc = vector_malloc;
+    Vector->copy = vector_copy;
+    Vector->resize = vector_resize;
+    Vector->push_back = vector_push_back;
+    Vector->pop_back = vector_pop_back;
+    Vector->delete = vector_delete;
+    Vector->delete_range = vector_delete_range;
+    Vector->set = vector_set;
+    Vector->insert = vector_insert;
 }
