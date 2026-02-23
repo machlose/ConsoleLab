@@ -29,14 +29,15 @@ typedef struct {
 
 ConsoleLabConsoleData ConsoleData;
 
-void console_init();
-vec2 console_getScreenSize();
-
 typedef struct {
     ConsoleLabConsoleData data;
-    void (*init)();
-    vec2 (*getScreenSize)();
+    void (*init)(struct ConsoleLabConsoleAPI*);
+    vec2 (*getScreenSize)(struct ConsoleLabConsoleAPI*);
 } ConsoleLabConsoleAPI;
+
+void console_init(ConsoleLabConsoleAPI* console);
+vec2 console_getScreenSize(ConsoleLabConsoleAPI* console);
+
 
 void ConsoleLabConsoleInit(ConsoleLabConsoleAPI* Console){
     Console->data = ConsoleData;

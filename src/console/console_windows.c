@@ -3,30 +3,29 @@
 
 #include "console.h"
 
-void console_init(){
-    printf("1");
-    // ConsoleData.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-    // ConsoleData.hIn  = GetStdHandle(STD_INPUT_HANDLE);
-    // printf("2");
+void console_init(ConsoleLabConsoleAPI* console){
+    console->data.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    console->data.hIn  = GetStdHandle(STD_INPUT_HANDLE);
+    printf("2");
 
-    // DWORD mode;
-    // GetConsoleMode(ConsoleData.hIn, &mode);
-    // mode |=  ENABLE_MOUSE_INPUT;
-    // mode |=  ENABLE_WINDOW_INPUT;
-    // SetConsoleMode(ConsoleData.hIn, mode);
-    // printf("3");
+    DWORD mode;
+    GetConsoleMode(console->data.hIn, &mode);
+    mode |=  ENABLE_MOUSE_INPUT;
+    mode |=  ENABLE_WINDOW_INPUT;
+    SetConsoleMode(console->data.hIn, mode);
+    printf("3");
 
-    // CONSOLE_CURSOR_INFO cci = { 1, FALSE };
-    // SetConsoleCursorInfo(ConsoleData.hOut, &cci);
-    // printf("4");
-    // ConsoleData.screenSize = console_getScreenSize();
-    // printf("5");
+    CONSOLE_CURSOR_INFO cci = { 1, FALSE };
+    SetConsoleCursorInfo(console->data.hOut, &cci);
+    printf("4");
+    console->data.screenSize = console_getScreenSize(console);
+    printf("5");
 }
 
-vec2 console_getScreenSize() {
+vec2 console_getScreenSize(ConsoleLabConsoleAPI* console) {
     vec2 output;
     CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(ConsoleData.hOut, &csbi);
+    GetConsoleScreenBufferInfo(console->data.hOut, &csbi);
 
     output.width  = csbi.srWindow.Right  - csbi.srWindow.Left + 1;
     output.height = csbi.srWindow.Bottom - csbi.srWindow.Top  + 1;
