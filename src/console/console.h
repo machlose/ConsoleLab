@@ -27,7 +27,6 @@ typedef struct {
     MouseInfo mouse;
 } ConsoleLabConsoleData;
 
-ConsoleLabConsoleData ConsoleData;
 
 typedef struct {
     ConsoleLabConsoleData data;
@@ -40,7 +39,7 @@ vec2 console_getScreenSize(ConsoleLabConsoleAPI* console);
 
 
 void ConsoleLabConsoleInit(ConsoleLabConsoleAPI* Console){
-    Console->data = ConsoleData;
+    Console->data;
     Console->init = console_init;
     Console->getScreenSize = console_getScreenSize;
 }

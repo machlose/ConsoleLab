@@ -24,9 +24,6 @@ void ConsoleLabInit(){
     #endif
     ConsoleLabConsoleInit(&Console);
     ConsoleLab.Console = Console;
-    printf("ConsoleInit Started\n");
-    ConsoleLab.Console.init(&ConsoleLab.Console);
-    printf("ConsoleInit Ended\n");
 
-    printf("ConsoleLab init complete\n");
+    ConsoleLab.Console.init(&ConsoleLab.Console);
 }
