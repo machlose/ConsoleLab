@@ -14,16 +14,8 @@ typedef struct {
 ConsoleLabAPI ConsoleLab;
 
 void ConsoleLabInit(){
-    #ifndef ConsoleLabGlobalVector
-    ConsoleLabVectorAPI Vector;
-    #endif
-    ConsoleLabVectorInit(&Vector);
-    ConsoleLab.Vector = Vector;
-    #ifndef ConsoleLabGlobalConsole
-    ConsoleLabConsoleAPI Console;
-    #endif
-    ConsoleLabConsoleInit(&Console);
-    ConsoleLab.Console = Console;
+    ConsoleLabVectorInit(&ConsoleLab.Vector);
+    ConsoleLabConsoleInit(&ConsoleLab.Console);
 
     ConsoleLab.Console.init(&ConsoleLab.Console);
 }

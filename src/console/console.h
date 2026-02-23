@@ -44,10 +44,6 @@ void ConsoleLabConsoleInit(ConsoleLabConsoleAPI* Console){
     Console->getScreenSize = console_getScreenSize;
 }
 
-#ifdef ConsoleLabGlobalConsole
-ConsoleLabConsoleAPI Console;
-#endif
-
 #ifdef _cplusplus
 }
 #endif
