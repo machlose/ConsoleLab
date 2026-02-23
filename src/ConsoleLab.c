@@ -17,8 +17,8 @@ void ConsoleLabInit(){
     #ifndef ConsoleLabGlobalVector
     ConsoleLabVectorAPI Vector;
     #endif
-    ConsoleLab.Vector = Vector;
     ConsoleLabVectorInit(&Vector);
+    ConsoleLab.Vector = Vector;
     #ifndef ConsoleLabGlobalConsole
     ConsoleLabConsoleAPI Console;
     #endif
