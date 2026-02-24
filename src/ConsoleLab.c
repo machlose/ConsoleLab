@@ -8,7 +8,6 @@
 typedef struct {
     ConsoleLabVectorAPI Vector;
     ConsoleLabConsoleAPI Console;
-    // vec2 (*vec2)(int, int);
 } ConsoleLabAPI;
 
 ConsoleLabAPI ConsoleLab;

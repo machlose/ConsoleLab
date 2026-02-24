@@ -3,7 +3,7 @@
 
 #include "console.h"
 
-void console_init(ConsoleLabConsoleAPI* console){
+void ConsoleInit(ConsoleLabConsoleAPI* console){
     console->data.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     console->data.hIn  = GetStdHandle(STD_INPUT_HANDLE);
 
@@ -18,7 +18,7 @@ void console_init(ConsoleLabConsoleAPI* console){
     console->data.screenSize = console_getScreenSize(console);
 }
 
-vec2 console_getScreenSize(ConsoleLabConsoleAPI* console) {
+vec2 ConsoleGetScreenSize(ConsoleLabConsoleAPI* console) {
     vec2 output;
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(console->data.hOut, &csbi);
