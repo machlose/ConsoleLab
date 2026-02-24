@@ -17,5 +17,5 @@ void ConsoleLabInit(){
     ConsoleLabVectorInit(&ConsoleLab.Vector);
     ConsoleLabConsoleInit(&ConsoleLab.Console);
 
-    ConsoleLab.Console.init(&ConsoleLab.Console);
+    ConsoleInit(&ConsoleLab.Console);
 }
