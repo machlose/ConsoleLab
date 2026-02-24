@@ -34,6 +34,7 @@ typedef struct {
 
 void ConsoleInit(ConsoleLabConsoleAPI* console);
 vec2 ConsoleGetScreenSize(ConsoleLabConsoleAPI* console);
+void ConsoleHandleEvents(ConsoleLabConsoleAPI* console);
 
 
 void ConsoleLabConsoleInit(ConsoleLabConsoleAPI* Console){

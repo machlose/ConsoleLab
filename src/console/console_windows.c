@@ -27,6 +27,31 @@ vec2 ConsoleGetScreenSize(ConsoleLabConsoleAPI* console) {
     output.height = csbi.srWindow.Bottom - csbi.srWindow.Top  + 1;
     return output;
 }
+void ConsoleHandleEvents(ConsoleLabConsoleAPI* console) {
+    INPUT_RECORD rec;
+    DWORD count;
+
+    while (PeekConsoleInput(console->data.hIn, &rec, 1, &count) && count > 0) {
+        ReadConsoleInput(console->data.hIn, &rec, 1, &count);
+
+        if (rec.EventType == WINDOW_BUFFER_SIZE_EVENT) {
+            console->data.screenSize = ConsoleGetScreenSize(console);
+            COORD newPos;
+            newPos.X = 0;
+            newPos.Y = 0;
+            SetConsoleCursorPosition(console->data.hOut,newPos);
+            printf("w: %d, h: %d     ", console->data.screenSize.w, console->data.screenSize.h);
+        }
+        if(rec.EventType == MOUSE_EVENT){
+            COORD mousePos = rec.Event.MouseEvent.dwMousePosition;
+            COORD newPos;
+            newPos.X = 0;
+            newPos.Y = 1;
+            SetConsoleCursorPosition(console->data.hOut,newPos);
+            printf("x: %d, y: %d     ", mousePos.X, mousePos.Y);
+        }
+    }
+}
 
 
 #endif
