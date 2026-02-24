@@ -3,11 +3,14 @@
 
 int main() {
     ConsoleLabInit();
+    color.red = 225;
+    color.green = 134;
+    color.blue = 227;
+
     while(true){
         ConsoleGetScreenSize(&ConsoleLab.Console);
         ConsoleHandleEvents(&ConsoleLab.Console);
-        // printf("w: %d, h: %d\n", ConsoleLab.Console.data.screenSize.w, ConsoleLab.Console.data.screenSize.h);
-        Sleep(1000/60);
+        Sleep(1000/400);
     }
     return 0;
 }

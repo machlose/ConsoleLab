@@ -2,6 +2,14 @@
 #ifdef _WIN32
 
 #include "console.h"
+#include "../helpers/colors.c"
+
+
+//virtual terminal starts
+#define ESC "\x1b"
+#define CSI "\x1b["
+
+rgb color;
 
 void ConsoleInit(ConsoleLabConsoleAPI* console){
     console->data.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -11,6 +19,8 @@ void ConsoleInit(ConsoleLabConsoleAPI* console){
     GetConsoleMode(console->data.hIn, &mode);
     mode |=  ENABLE_MOUSE_INPUT;
     mode |=  ENABLE_WINDOW_INPUT;
+    mode |=  ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    mode &= ~ENABLE_QUICK_EDIT_MODE;
     SetConsoleMode(console->data.hIn, mode);
 
     CONSOLE_CURSOR_INFO cci = { 1, FALSE };
@@ -43,10 +53,20 @@ void ConsoleHandleEvents(ConsoleLabConsoleAPI* console) {
             printf("w: %d, h: %d     ", console->data.screenSize.w, console->data.screenSize.h);
         }
         if(rec.EventType == MOUSE_EVENT){
+            AddHue(&color,1);
             COORD mousePos = rec.Event.MouseEvent.dwMousePosition;
             COORD newPos;
             newPos.X = 0;
             newPos.Y = 1;
+            SetConsoleCursorPosition(console->data.hOut,mousePos);
+            printf(ESC "(0"); // Enter Line drawing mode
+            printf(CSI "38;2;%d;%d;%dm",color.red,color.green,color.blue); // bright yellow on bright blue
+            printf_s("O"); // in line drawing mode, \x78 -> \u2502 "Vertical Bar"
+            printf(CSI "0m"); // restore color
+            printf(ESC "(B"); // exit line drawing mode
+            SetConsoleCursorPosition(console->data.hOut,newPos);
+            printf("%d, %d, %d          ",color.red,color.green,color.blue);
+            newPos.Y = 2;
             SetConsoleCursorPosition(console->data.hOut,newPos);
             printf("x: %d, y: %d     ", mousePos.X, mousePos.Y);
         }
