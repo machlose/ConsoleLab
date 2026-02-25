@@ -7,8 +7,8 @@
 #include "time.c"
 
 typedef enum {
-    Windows10,
-    Windows11,
+    Windows,
+    UNIX,
     MacOS,
     Linux,
     Other    
@@ -20,15 +20,19 @@ typedef struct {
     void* osContext;
 } ConsoleLabContext;
 
-ConsoleLabContext* clglobalContext;
-
 ConsoleLabContext ConsoleLabCreateContext(){
     ConsoleLabContext context;
     TimeInit(&context.time);
+    #ifdef _WIN32
+    context.os = Windows;
+    #else
+    context.os = UNIX;
+    #endif
     return context;
 }
 
 typedef struct {
+    ConsoleLabContext context;
     ConsoleLabVectorAPI Vector;
     ConsoleLabConsoleAPI Console;
 } ConsoleLabAPI;
@@ -38,7 +42,7 @@ ConsoleLabAPI ConsoleLab;
 void ConsoleLabInit(){
     ConsoleLabVectorInit(&ConsoleLab.Vector);
     ConsoleLabConsoleInit(&ConsoleLab.Console);
-
+    ConsoleLab.context = ConsoleLabCreateContext();
 
     ConsoleInit(&ConsoleLab.Console);
 }
