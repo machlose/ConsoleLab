@@ -13,13 +13,12 @@ int main() {
         ConsoleHandleEvents(&ConsoleLab.Console);
         ConsoleLab.Tick();
         
-        // printf(ConsoleLab.time.delta);
         COORD newPos;
         newPos.X = 0;
         newPos.Y = 0;
         SetConsoleCursorPosition(ConsoleLab.Console.data.hOut,newPos);
         printf("fps: %d, %d", ConsoleLab.time.fps, ConsoleLab.time.delta);
-        //Sleep(1000/400);
+        // Sleep(1000/400);
     }
     return 0;
 }
