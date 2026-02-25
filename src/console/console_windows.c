@@ -4,7 +4,6 @@
 #include "console.h"
 #include "../helpers/colors.c"
 
-
 //virtual terminal starts
 #define ESC "\x1b"
 #define CSI "\x1b["
@@ -51,7 +50,7 @@ void ConsoleHandleEvents(ConsoleLabConsoleAPI* console) {
             newPos.X = 0;
             newPos.Y = 0;
             SetConsoleCursorPosition(console->data.hOut,newPos);
-            printf("w: %d, h: %d     ", console->data.screenSize.w, console->data.screenSize.h);
+            printf("w: %d, h: %d     \n", console->data.screenSize.w, console->data.screenSize.h);
         }
         if(rec.EventType == MOUSE_EVENT){
             AddHue(&color,1);
