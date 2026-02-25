@@ -13,7 +13,6 @@ int main() {
         ConsoleHandleEvents(&ConsoleLab.Console);
         ConsoleLab.Tick();
         
-        // printf(ConsoleLab.time.delta);
         COORD newPos;
         newPos.X = 0;
         newPos.Y = 0;
