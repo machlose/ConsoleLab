@@ -19,7 +19,9 @@ int main() {
         newPos.Y = 0;
         SetConsoleCursorPosition(ConsoleLab.Console.data.hOut,newPos);
         printf("fps: %d, %d", ConsoleLab.time.fps, ConsoleLab.time.delta);
-        //Sleep(1000/400);
+        double sleepTime = 1000.0/60.0-((double)(ConsoleLab.time.delta)*1000.0);
+        sleepTime = sleepTime < 0 ? 0 : sleepTime;
+        Sleep(sleepTime);
     }
     return 0;
 }
