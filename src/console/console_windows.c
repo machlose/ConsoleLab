@@ -37,6 +37,7 @@ vec2 ConsoleGetScreenSize(ConsoleLabConsoleAPI* console) {
     output.height = csbi.srWindow.Bottom - csbi.srWindow.Top  + 1;
     return output;
 }
+
 void ConsoleHandleEvents(ConsoleLabConsoleAPI* console) {
     INPUT_RECORD rec;
     DWORD count;
