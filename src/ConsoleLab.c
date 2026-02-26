@@ -40,7 +40,13 @@ typedef struct {
 
 ConsoleLabAPI ConsoleLab;
 
+void ConsoleLabConsoleTick(){
+    ConsoleGetScreenSize(&ConsoleLab.Console);
+    printf("w %d, h %d\n", ConsoleLab.Console.data.screenSize.x, ConsoleLab.Console.data.screenSize.y);
+}
+
 void ConsoleLabTick(){
+    ConsoleLabConsoleTick();
     ConsoleLab.time.update(&ConsoleLab.time);
     FrameLimiter(&ConsoleLab.time);
 }

@@ -1,6 +1,12 @@
 #pragma once
 #include <stdio.h>
 #include <time.h>
+
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <unistd.h>
+#endif
 // #ifndef TIME_MACROS_H
 // #define TIME_MACROS_H
 
@@ -21,7 +27,7 @@ typedef struct {
     cltime start;
     cltime end;
     cltime time;
-    bool running;
+    int running;
 } Timer;
 
 void TimerStart(Timer* timer) {
@@ -71,15 +77,26 @@ static void setTargetFPS(Time* time, cltime fps) {
         time->targetFrameTime = 0.0;
 }
 
-void FrameLimiter(Time* time) {
+void FrameLimiter(Time* time)
+{
     if (time->targetFrameTime <= 0.0) return;
 
-    cltime frameEnd = sys_time();
-    double frameTime = frameEnd - time->last;
+    cltime remaining = time->targetFrameTime - sys_time()- time->last;
 
-    while (frameTime < time->targetFrameTime) {
-        frameEnd = sys_time();
-        frameTime = frameEnd - time->last;
+    if (remaining > 0.0){
+    #ifdef _WIN32
+        DWORD ms = (DWORD)(remaining * 1000.0);
+
+        if (ms > 0){
+            Sleep(ms - 1);
+        } 
+    #else
+        struct timespec ts;
+        ts.tv_sec = (time_t)remaining;
+        ts.tv_nsec = (long)((remaining - ts.tv_sec) * 1e9);
+        nanosleep(&ts, NULL);
+    #endif
+        while ((sys_time() - time->last) < time->targetFrameTime){}
     }
 }
 
