@@ -36,6 +36,7 @@ typedef struct {
     ConsoleLabVectorAPI Vector;
     ConsoleLabConsoleAPI Console;
     ConsoleLabFileAPI File;
+    fileArray files;
     Time time;
     void (*Tick)();
     void (*Close)();
@@ -54,15 +55,20 @@ void ConsoleLabTick(){
     FrameLimiter(&ConsoleLab.time);
 }
 
-void ConsoleLabColse(){
-    // freeFileArray();
+void ConsoleLabClose(){
+    freeFileArray(&ConsoleLab.files);
 }
 
 void ConsoleLabInit(){
     ConsoleLab.Tick = ConsoleLabTick;
+    ConsoleLab.Close = ConsoleLabClose;
     ConsoleLabVectorInit(&ConsoleLab.Vector);
     ConsoleLabConsoleInit(&ConsoleLab.Console);
+    ConsoleLabFileInit(&ConsoleLab.File);
     TimeInit(&ConsoleLab.time);
 
     ConsoleInit(&ConsoleLab.Console);
+    // ConsoleLab.files = ConsoleLab.File.scan("./");
+    ConsoleLab.files = ConsoleLab.File.scan("./textures");
+    ConsoleLab.File.printFiles(&ConsoleLab.files);
 }

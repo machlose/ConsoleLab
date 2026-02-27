@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #define MAX_NAME 255
 #define MAX_PATH_LEN 1024
 #define MAX_FILES 128
@@ -14,6 +15,10 @@
 typedef struct {
     char name[MAX_NAME];
     char path[MAX_PATH_LEN];
+    size_t size;
+    // bool isReadOnly;
+    // bool isHidden;   
+    // bool isSystem;
 } filePath;
 
 typedef struct {
@@ -25,14 +30,18 @@ void freeFileArray(fileArray* arr){
     free(arr->files);
 }
 
-filePath* scan(const char* path);
+fileArray scan(const char* path);
+
+void printFiles(fileArray* files);
 
 typedef struct {
-    filePath* (*scan)(const char* path);
+    fileArray (*scan)(const char* path);
+    void (*printFiles)(fileArray* files);
 } ConsoleLabFileAPI;
 
 void ConsoleLabFileInit(ConsoleLabFileAPI* File){
     File->scan = scan;
+    File->printFiles = printFiles;
 }
 
 #ifdef _WIN32

@@ -21,5 +21,6 @@ int main() {
     //     SetConsoleCursorPosition(ConsoleLab.Console.data.hOut,newPos);
     //     printf("fps: %d, %d", ConsoleLab.time.fps, ConsoleLab.time.delta);
     // }
+    ConsoleLabClose();
     return 0;
 }
