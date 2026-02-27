@@ -21,8 +21,12 @@ typedef struct {
 } MouseInfo;
 
 typedef struct {
+    #ifdef _WIN32
     HANDLE hOut;
     HANDLE hIn;
+    #else
+
+    #endif
     vec2 screenSize;
     MouseInfo mouse;
 } ConsoleLabConsoleData;
@@ -30,15 +34,16 @@ typedef struct {
 
 typedef struct {
     ConsoleLabConsoleData data;
+    void (*Tick)();
 } ConsoleLabConsoleAPI;
 
 void ConsoleInit(ConsoleLabConsoleAPI* console);
 vec2 ConsoleGetScreenSize(ConsoleLabConsoleAPI* console);
 void ConsoleHandleEvents(ConsoleLabConsoleAPI* console);
-
+void ConsoleLabConsoleTick();
 
 void ConsoleLabConsoleInit(ConsoleLabConsoleAPI* Console){
-    Console->data;
+    Console->Tick = ConsoleLabConsoleTick;
 }
 
 #ifdef _cplusplus

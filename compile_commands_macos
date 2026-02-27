@@ -1,2 +1,2 @@
-clang++ -std=c++11 src/main.cpp -o build/main
+clang -std=gnu17 src/main.c -o build/main
 ./build/main 
