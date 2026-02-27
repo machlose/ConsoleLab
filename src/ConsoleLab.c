@@ -46,7 +46,7 @@ void ConsoleLabConsoleTick(){
 }
 
 void ConsoleLabTick(){
-    ConsoleLabConsoleTick();
+    // ConsoleLabConsoleTick();
     ConsoleLab.time.update(&ConsoleLab.time);
     FrameLimiter(&ConsoleLab.time);
 }
@@ -58,4 +58,8 @@ void ConsoleLabInit(){
     TimeInit(&ConsoleLab.time);
 
     ConsoleInit(&ConsoleLab.Console);
+}
+
+void ConsoleLabColse(){
+    
 }

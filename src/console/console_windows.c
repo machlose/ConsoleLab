@@ -8,7 +8,7 @@
 #define ESC "\x1b"
 #define CSI "\x1b["
 
-rgb color;
+rgba color;
 
 void ConsoleInit(ConsoleLabConsoleAPI* console){
     console->data.hOut = GetStdHandle(STD_OUTPUT_HANDLE);

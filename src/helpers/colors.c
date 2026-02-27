@@ -1,17 +1,19 @@
+#pragma once
 #include <stdbool.h>
 #include <math.h>
 typedef struct{
-    int red;
-    int green;
-    int blue;
-} rgb;
+    byte red;
+    byte green;
+    byte blue;
+    byte alfa;
+} rgba;
 typedef struct{
     int hue;
     int saturation;
     int value;
 } hsv;
-rgb HsvToRgb(hsv color){
-    rgb rgbColor;
+rgba HsvToRgb(hsv color){
+    rgba rgbColor;
     double huePrim = (double)color.hue/(double)60;
     double C = (double)(color.value*color.saturation)/(double)10000;
     double temp;
@@ -52,7 +54,7 @@ rgb HsvToRgb(hsv color){
 
     return rgbColor;
 }
-hsv RgbToHsv(rgb color){
+hsv RgbToHsv(rgba color){
     hsv hsvColor;
     int m = min(min(color.red,color.green),color.blue);
     int M = max(max(color.red,color.green),color.blue);
@@ -85,20 +87,20 @@ hsv RgbToHsv(rgb color){
     return hsvColor;
 }
 
-void AddHue(rgb* color,int move){
+void AddHue(rgba* color,int move){
     hsv hsvColor = RgbToHsv(*color);
     hsvColor.hue += move;
     hsvColor.hue = hsvColor.hue % 360;
     if(hsvColor.hue == 0){
         hsvColor.hue = 1;
     }
-    rgb rgbColor = HsvToRgb(hsvColor);
+    rgba rgbColor = HsvToRgb(hsvColor);
     color->red = rgbColor.red;
     color->green = rgbColor.green;
     color->blue = rgbColor.blue;
 }
-rgb initRgb(int red, int green, int blue){
-    rgb newRgb;
+rgba initRgb(int red, int green, int blue){
+    rgba newRgb;
     newRgb.red = red;
     newRgb.green = green;
     newRgb.blue = blue;
