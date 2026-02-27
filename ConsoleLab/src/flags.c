@@ -1,0 +1,2 @@
+#define ConsoleLabGlobalVector
+#define ConsoleLabGlobalConsole
