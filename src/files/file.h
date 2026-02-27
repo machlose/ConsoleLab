@@ -27,6 +27,14 @@ void freeFileArray(fileArray* arr){
 
 filePath* scan(const char* path);
 
+typedef struct {
+    filePath* (*scan)(const char* path);
+} ConsoleLabFileAPI;
+
+void ConsoleLabFileInit(ConsoleLabFileAPI* File){
+    File->scan = scan;
+}
+
 #ifdef _WIN32
 #include "file_windows.c"
 #else

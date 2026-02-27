@@ -6,5 +6,5 @@
 #include "../textures/texturestest.c"
 
 void test(){
-    scan("../../../../../../");
+    scan("textures");
 }

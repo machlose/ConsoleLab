@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "vectors.c"
 #include "console/console.h"
+#include "files/file.h"
 #include "flags.c"
 #include "time.c"
 
@@ -34,8 +35,10 @@
 typedef struct {
     ConsoleLabVectorAPI Vector;
     ConsoleLabConsoleAPI Console;
+    ConsoleLabFileAPI File;
     Time time;
     void (*Tick)();
+    void (*Close)();
 } ConsoleLabAPI;
 
 ConsoleLabAPI ConsoleLab;
@@ -51,6 +54,10 @@ void ConsoleLabTick(){
     FrameLimiter(&ConsoleLab.time);
 }
 
+void ConsoleLabColse(){
+    // freeFileArray();
+}
+
 void ConsoleLabInit(){
     ConsoleLab.Tick = ConsoleLabTick;
     ConsoleLabVectorInit(&ConsoleLab.Vector);
@@ -58,8 +65,4 @@ void ConsoleLabInit(){
     TimeInit(&ConsoleLab.time);
 
     ConsoleInit(&ConsoleLab.Console);
-}
-
-void ConsoleLabColse(){
-    
 }

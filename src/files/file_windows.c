@@ -45,7 +45,7 @@ void scan_r(const char* basePath, filePath** files, int *count, int *capacity) {
     FindClose(hFind);
 }
 
-filePath* scan(const char* path){
+fileArray* scan(const char* path){
     filePath *files = malloc(MAX_FILES * sizeof(filePath));
     int count = 0;
     int capacity = MAX_FILES;
@@ -57,6 +57,6 @@ filePath* scan(const char* path){
         printf("Sciezka: %s\n\n", files[i].path);
     }
 
-    free(files);
+    files;
     return 0;
 }
