@@ -57,10 +57,10 @@ void ConsoleLabConsoleTick(){
 }
 
 void ConsoleLabTick(){
+    ConsoleHandleEvents(&ConsoleLab.Console);//, &ConsoleLab.Mouse);
+    
+    
     ConsoleLabConsoleTick();
-    GetMouseInfo(&ConsoleLab.Console, &ConsoleLab.Mouse);
-    ConsoleLab.Time.update(&ConsoleLab.Time);
-    FrameLimiter(&ConsoleLab.Time);
 }
 
 void ConsoleLabClose(){
@@ -72,8 +72,10 @@ void ConsoleLabRun(void (*update)(int* run)){
     ConsoleLabInit();
     int run = 1;
     while(run){
-        update(&run);
+        ConsoleLab.Time.update(&ConsoleLab.Time);
         ConsoleLabTick();
+        update(&run);
+        FrameLimiter(&ConsoleLab.Time);
     }
     ConsoleLabClose();
 }

@@ -44,7 +44,7 @@ typedef struct {
 
     #endif
     vec2 screenSize;
-    MouseInfo mouse;
+    MouseInfo* mouse;
     // ConsoleLabConsoleData data;
     void (*Tick)();
 } ConsoleLabConsoleAPI;
@@ -52,10 +52,12 @@ typedef struct {
 void ConsoleInit(ConsoleLabConsoleAPI* console);
 vec2 ConsoleGetScreenSize(ConsoleLabConsoleAPI* console);
 void ConsoleHandleEvents(ConsoleLabConsoleAPI* console);
+// void ConsoleHandleEvents(ConsoleLabConsoleAPI* console, MouseInfo* mouse);
 void ConsoleLabConsoleTick();
 
 void ConsoleLabConsoleInit(ConsoleLabConsoleAPI* Console){
     Console->Tick = ConsoleLabConsoleTick;
+    Console->mouse;// = ;
 }
 
 #ifdef _cplusplus

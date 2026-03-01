@@ -23,6 +23,11 @@ void ConsoleInit(ConsoleLabConsoleAPI* console){
     mode &= ~ENABLE_QUICK_EDIT_MODE;
     SetConsoleMode(console->hIn, mode);
 
+    DWORD modeOut;
+    GetConsoleMode(console->hOut, &modeOut);
+    modeOut |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(console->hOut, modeOut);
+
     CONSOLE_CURSOR_INFO cci = { 1, FALSE };
     SetConsoleCursorInfo(console->hOut, &cci);
     console->screenSize = ConsoleGetScreenSize(console);
@@ -75,6 +80,41 @@ void GetMouseInfo(ConsoleLabConsoleAPI* console, MouseInfo* mouseinfo){
 void ConsoleTick(){
 
 }
+
+// void ConsoleHandleEvents(ConsoleLabConsoleAPI* console, MouseInfo* mouse) {
+//     INPUT_RECORD rec;
+//     DWORD count;
+
+//     mouse->leftPressed = 0;
+//     mouse->rightPressed = 0;
+
+//     while (PeekConsoleInput(console->hIn, &rec, 1, &count) && count > 0) {
+//         ReadConsoleInput(console->hIn, &rec, 1, &count);
+
+//         if (rec.EventType == WINDOW_BUFFER_SIZE_EVENT) {
+//             console->screenSize = ConsoleGetScreenSize(console);
+//         }
+
+//         if (rec.EventType == MOUSE_EVENT) {
+//             MOUSE_EVENT_RECORD* m = &rec.Event.MouseEvent;
+
+//             mouse->x = m->dwMousePosition.X;
+//             mouse->y = m->dwMousePosition.Y;
+
+//             int leftNow  = (m->dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED) != 0;
+//             int rightNow = (m->dwButtonState & RIGHTMOST_BUTTON_PRESSED) != 0;
+
+//             if (leftNow && !mouse->leftHeld)
+//                 mouse->leftPressed = 1;
+
+//             if (rightNow && !mouse->rightHeld)
+//                 mouse->rightPressed = 1;
+
+//             mouse->leftHeld = leftNow;
+//             mouse->rightHeld = rightNow;
+//         }
+//     }
+// }
 
 void ConsoleHandleEvents(ConsoleLabConsoleAPI* console) {
     INPUT_RECORD rec;
