@@ -11,9 +11,15 @@
 extern "C" {
 #endif
 
+typedef vec2 Pos;
+typedef vec2 size;
+//typedef struct {
+//     int x;
+//     int y;
+// } Pos;
+
 typedef struct {
-    int x;
-    int y;
+    Pos pos;
     int leftPressed;   // true tylko przez jedną klatkę po wciśnięciu
     int rightPressed;
     int leftHeld;      // true dopóki trzymasz
