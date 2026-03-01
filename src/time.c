@@ -50,9 +50,9 @@ void TimerReset(Timer* timer) {
     timer->time = 0;
 }
 
-typedef struct Time Time;
+typedef struct clTime clTime;
 
-typedef struct Time {
+typedef struct clTime {
     cltime start;
     cltime time; //from start
     cltime last; //last frame
@@ -65,20 +65,19 @@ typedef struct Time {
 
     Timer timer;
     cltime (*now)();
-    void (*setTargetFPS)(Time* time, cltime fps);
+    void (*setTargetFPS)(clTime* time, cltime fps);
     void (*resetTimer)(Timer* timer);
-    void (*update)(Time* timer);
-} Time;
+    void (*update)(clTime* timer);
+} clTime;
 
-static void setTargetFPS(Time* time, cltime fps) {
+static void setTargetFPS(clTime* time, cltime fps) {
     if (fps > 0.0)
         time->targetFrameTime = 1.0 / fps;
     else
         time->targetFrameTime = 0.0;
 }
 
-void FrameLimiter(Time* time)
-{
+void FrameLimiter(clTime* time){
     if (time->targetFrameTime <= 0.0) return;
 
     cltime remaining = time->targetFrameTime - sys_time()- time->last;
@@ -100,7 +99,7 @@ void FrameLimiter(Time* time)
     }
 }
 
-void TimeUpdate(Time* time) {
+void TimeUpdate(clTime* time) {
     time->delta = time->now() - time->last;
     time->time = time->now() - time->start;
     time->fpsTimer += time->delta;
@@ -115,7 +114,7 @@ void TimeUpdate(Time* time) {
     time->last = time->now();
 }
 
-void TimeInit(Time* time) {
+void TimeInit(clTime* time) {
     time->now = sys_time;
     time->setTargetFPS = setTargetFPS;
     time->resetTimer = TimerReset;

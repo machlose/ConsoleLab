@@ -1,26 +1,13 @@
 #include "ConsoleLab.c"
 #include "test.c"
 
-int main() {
-    ConsoleLabInit();
-    test();
-
-    color.red = 225;
-    color.green = 134;
-    color.blue = 227;
-    ConsoleLab.time.setTargetFPS(&ConsoleLab.time, 60);
-
-    while(true){
-        ConsoleGetScreenSize(&ConsoleLab.Console);
-        ConsoleHandleEvents(&ConsoleLab.Console);
-        ConsoleLab.Tick();
-        
-        COORD newPos;
-        newPos.X = 0;
-        newPos.Y = 0;
-        SetConsoleCursorPosition(ConsoleLab.Console.data.hOut,newPos);
-        printf("fps: %d, %d", ConsoleLab.time.fps, ConsoleLab.time.delta);
+void mainLoop(int* run){
+    if(ConsoleLab.Time.time > 5){
+        *run = 0;
     }
-    ConsoleLabClose();
+}
+
+int main() {
+    ConsoleLab.Run(mainLoop);
     return 0;
 }

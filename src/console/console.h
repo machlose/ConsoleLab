@@ -19,12 +19,22 @@ typedef vec2 size;
 // } Pos;
 
 typedef struct {
-    Pos pos;
+    int x;
+    int y;
     int leftPressed;   // true tylko przez jedną klatkę po wciśnięciu
     int rightPressed;
     int leftHeld;      // true dopóki trzymasz
     int rightHeld;
 } MouseInfo;
+
+typedef struct {
+    int key;
+} KeyboardInfo;
+
+// typedef struct {
+    
+// } ConsoleLabConsoleData;
+
 
 typedef struct {
     #ifdef _WIN32
@@ -35,11 +45,7 @@ typedef struct {
     #endif
     vec2 screenSize;
     MouseInfo mouse;
-} ConsoleLabConsoleData;
-
-
-typedef struct {
-    ConsoleLabConsoleData data;
+    // ConsoleLabConsoleData data;
     void (*Tick)();
 } ConsoleLabConsoleAPI;
 
