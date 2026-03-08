@@ -1,13 +1,13 @@
-#include "ConsoleLab.c"
+#include "ConsoleLab.h"
 #include "test.c"
 
-void mainLoop(int* run){
-    if(ConsoleLab.Time.time > 5){
-        *run = 0;
-    }
-}
+// void mainLoop(int* run){
+//     if(ConsoleLab.Time.time > 5){
+//         *run = 0;
+//     }
+// }
 
-int main() {
-    ConsoleLab.Run(mainLoop);
-    return 0;
-}
+// int main() {
+//     ConsoleLab.Run(mainLoop);
+//     return 0;
+// }
