@@ -1,4 +1,6 @@
 #ifndef CONSOLELAB
+#define 
+
 
 
 typedef enum {
@@ -9,7 +11,7 @@ typedef struct {
     clState state;    
 } ConsoleLabContext;
 
-ConsoleLabContext* ConsoleLabGlobalContext;
+ConsoleLabContext ConsoleLabCreateContext;
 
 #else 
 #define CONSOLELAB
