@@ -1,16 +1,15 @@
 #ifndef CONSOLELAB
 
+
+typedef enum {
+    working
+} clState;
+
 typedef struct {
-    
+    clState state;    
 } ConsoleLabContext;
 
-ConsoleLabContext* ConsoleLabGlobalContext = nullptr;
-
-void ConsoleLabInit(ConsoleLabContext* context){
-    if(!context){
-         
-    }
-}
+ConsoleLabContext* ConsoleLabGlobalContext;
 
 #else 
 #define CONSOLELAB
