@@ -1,6 +1,9 @@
 #ifndef CONSOLELAB_H
 #define CONSOLELAB_H
+#define CL_VERSION_MAJOR 0
+#define CL_VERSION_MINOR 0
 #include "ConsoleLabFlags.c" // delete later
+#include "types.c"
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -9,10 +12,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-typedef enum clState clState;
-typedef enum clResult clResult;
-typedef struct clContext clContext;
-
 clContext* cl_global_context;
 
 // example for every function

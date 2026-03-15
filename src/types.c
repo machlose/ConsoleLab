@@ -1,5 +1,8 @@
+#ifndef CONSOLELAB_TYPES
+#define CONSOLECONSOLELAB_TYPESLAB_H
 typedef double cltime;
-typedef int clbool;
-typedef int clint;
-typedef float clfloat;
-typedef double cldouble;
+typedef enum clState clState;
+typedef enum clResult clResult;
+typedef enum clOS clOS;
+typedef struct clContext clContext;
+#endif
