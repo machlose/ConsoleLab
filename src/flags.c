@@ -1,3 +1,0 @@
-#define ConsoleLabGlobalVector
-#define ConsoleLabGlobalConsole
-#define ConsoleLabGlobalContext
