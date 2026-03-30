@@ -1,3 +1,5 @@
+#ifndef STRING
+#define STRING
 #include <stdlib.h>
 #include <string.h>
 
@@ -92,3 +94,4 @@ void freeString(String* str){
     str->size = 0;
     str->capacity = 0;
 }
+#endif

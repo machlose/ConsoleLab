@@ -7,35 +7,53 @@
 typedef charType charType;
 enum charType{
     space,
-    digit,
-    letter,
+    number,
+    identifier,
     operator,
     unknown,
 };
 
 bool isopertor(unsigned char c){
-    return '+' || '-' || '*' || '/' || '%' || '=' || '<' || '>' || '(' || ')' || '[' || ']' || '{' || '}' || '!' || '~' || '^' || '|' || '&' || '\\' || ';' || ':' || '\'' || '\"' || '`' || '.' || ',' || '?' || '@' || '#' || '$'; 
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c == '=' || c == '<' || c == '>' || c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}' || c == '!' || c == '~' || c == '^' || c == '|' || c == '&' || c == '\\' || c == ';' || c == ':' || c == '\'' || c == '\"' || c == '`' || c == '.' || c == ',' || c == '?' || c == '@' || c == '#' || c == '$'; 
 }
 
-void tokenize(char* buffer, size_t size){
+void tokenize(char* code_buffer, size_t size){
     String buffer = getString();
     TokenArray tokens;
     size_t i = 0;
     unsigned char c = '/0';
     charType last = space; 
+    bool isIdentifier = false;
     do {
-        c = i++[buffer];
+        c = i++[code_buffer];
         if(isspace(c)){
-
+            if(last == operator || last == identifier || last == number){
+                createToken(buffer.value, last == operator ? operator : isIdentifier ? identifier : number);
+                isIdentifier = false;
+                clearString(&buffer);
+            }
             last = space; 
-        } else if(isalpha(c)){
-
-            last = letter; 
+        } else if(isalpha(c) || c== '_'){
+            if(last == operator){
+                createToken(buffer.value, operator);
+                isIdentifier = false;
+            }
+            appendChar(buffer.value, c);
+            isIdentifier = true;
+            last = identifier; 
         } else if(isdigit(c)){
-
-            last = digit; 
+            if(last == operator){
+                createToken(&buffer, operator);
+                isIdentifier = false;
+            }
+            appendChar(&buffer, c);
+            last = number; 
         } else if(isopertor(c)){
-
+            if(last == identifier || last == number){
+                createToken(buffer.value, isIdentifier ? identifier : number);
+                isIdentifier = false;
+            }
+            appendChar(&buffer, c);
             last = operator; 
         } else{
             printf("unknown\n");
