@@ -12,6 +12,10 @@
 #define MAX_PATH_LEN 1024
 #define MAX_FILES 128
 
+//TEPM
+#include "read_file_c.c"
+#include "get_current_dir.c"
+
 typedef struct {
     char name[MAX_NAME];
     char path[MAX_PATH_LEN];
@@ -33,7 +37,9 @@ void freeFileArray(fileArray* arr){
 fileArray scan(const char* path);
 
 void printFiles(fileArray* files);
+// fileString readFile(char* path);
 
+/* Shit and garbage
 typedef struct {
     fileArray (*scan)(const char* path);
     void (*printFiles)(fileArray* files);
@@ -42,7 +48,7 @@ typedef struct {
 void ConsoleLabFileInit(ConsoleLabFileAPI* File){
     File->scan = scan;
     File->printFiles = printFiles;
-}
+}*/
 
 #ifdef _WIN32
 #include "file_windows.c"

@@ -104,3 +104,7 @@ fileArray scan(const char* path){
 
     return files;
 }
+
+
+//TEMP
+// fileString readFile(char* path);

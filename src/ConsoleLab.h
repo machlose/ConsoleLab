@@ -16,8 +16,8 @@ clContext* cl_global_context;
 
 // example for every function
 // void cl_context_create(clContext* context, clResult* result);
-// #define cl_context_create(...) cl_context_create(cl_global_context, &cl_global_context->result, __VA_ARGS__)
-// #define cl_context_create(result, ...) cl_context_create(cl_global_context, result, __VA_ARGS__)
+// #define cl_(...) cl_(cl_global_context, &cl_global_context->result, __VA_ARGS__)
+// #define cl_(result, ...) cl_(cl_global_context, result, __VA_ARGS__)
 
 void cl_context_create(clContext* context, clResult* result);
 #define cl_context_create() cl_context_create(cl_global_context, &cl_global_context->result)
