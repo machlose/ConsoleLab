@@ -78,6 +78,7 @@ fileString CL_ReadFile(char* path){
     }
 
     fclose(file);
+    writeToFileString(&fileString, "\n\0");
     fileString.success = 's';
     return fileString;
 }
