@@ -1,7 +1,6 @@
+#ifndef INTERPERTER_H
+#define INTERPERTER_H
+#include "tokenizer.c"
 
 
-
-
-void tokenize(char* buffer, size_t size){
-    
-}
+#endif

@@ -1,5 +1,6 @@
 // #include "ConsoleLab.h"
 #include "files/file.h"
+#include "interpreter/interpreter.h"
 
 int main(){
     char buffer[1028];
@@ -8,7 +9,7 @@ int main(){
     printf("%s\n", (files.files+1)->path);
     fileString file = CL_ReadFile((files.files+1)->path);
     printf("%s", file.string);
-    
+
     freeFileString(&file);
     printf("\ndone\n");
     return 0;
