@@ -28,29 +28,32 @@ void tokenize(char* code_buffer, size_t size){
         c = i++[code_buffer];
         if(isspace(c)){
             if(last == operator || last == identifier || last == number){
-                createToken(buffer.value, last == operator ? operator : isIdentifier ? identifier : number);
+                appendToken(&tokens, createToken(buffer.value, last == operator ? operator : isIdentifier ? identifier : number));
                 isIdentifier = false;
                 clearString(&buffer);
             }
             last = space; 
         } else if(isalpha(c) || c== '_'){
             if(last == operator){
-                createToken(buffer.value, operator);
+                appendToken(&tokens, createToken(buffer.value, operator));
                 isIdentifier = false;
+                clearString(&buffer);
             }
             appendChar(buffer.value, c);
             isIdentifier = true;
             last = identifier; 
         } else if(isdigit(c)){
             if(last == operator){
-                createToken(&buffer, operator);
+                appendToken(&tokens, createToken(&buffer, operator));
                 isIdentifier = false;
+                clearString(&buffer);
             }
             appendChar(&buffer, c);
             last = number; 
         } else if(isopertor(c)){
             if(last == identifier || last == number){
-                createToken(buffer.value, isIdentifier ? identifier : number);
+                appendToken(&tokens, createToken(buffer.value, isIdentifier ? identifier : number));
+                clearString(&buffer);
                 isIdentifier = false;
             }
             appendChar(&buffer, c);

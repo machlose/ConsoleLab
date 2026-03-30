@@ -46,11 +46,11 @@ int resizeTokenArray(TokenArray* arr, size_t new_capacity){
     return 1;
 }
 
-int appendToken(TokenArray* arr, char c){
+int appendToken(TokenArray* arr, Token t){
     if(arr->size + 2 > arr->capacity){
         if(!resizeTokenArray(arr, arr->capacity * 2)) return 0;
     }
-    arr->value[arr->size++] = c;
+    arr->value[arr->size++] = t;
     return 1;
 }
 
@@ -65,9 +65,9 @@ void freeTokenArray(TokenArray* arr){
     arr->capacity = 0;
 }
 
-void createToken(char* value, TokenType type){
+Token createToken(char* value, TokenType type){
     Token token = {0};
     copyString(&token.value, value);
     printf("Token Created with value %s", token.value.value);
-    
+    return token;
 }
