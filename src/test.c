@@ -1,7 +1,11 @@
 #pragma once
-#include "console/console.h"
-#include "ConsoleLab.c"
+// #include "console/console.h"
+// #include "images/png.c"
+// #include "files/file.h"
+// #include "ConsoleLab.c"
+// #include "../textures/texturestest.c"
 
 void test(){
-    printf("w: %d, h: %d", ConsoleLab.Console.data.screenSize.w, ConsoleLab.Console.data.screenSize.h);
+    scan("textures");
+    
 }

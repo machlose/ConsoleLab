@@ -11,6 +11,13 @@
 extern "C" {
 #endif
 
+typedef vec2 Pos;
+typedef vec2 size;
+//typedef struct {
+//     int x;
+//     int y;
+// } Pos;
+
 typedef struct {
     int x;
     int y;
@@ -21,27 +28,37 @@ typedef struct {
 } MouseInfo;
 
 typedef struct {
-    HANDLE hOut;
-    HANDLE hIn;
-    vec2 screenSize;
-    MouseInfo mouse;
-} ConsoleLabConsoleData;
+    int key;
+} KeyboardInfo;
+
+// typedef struct {
+    
+// } ConsoleLabConsoleData;
 
 
 typedef struct {
-    ConsoleLabConsoleData data;
+    #ifdef _WIN32
+    HANDLE hOut;
+    HANDLE hIn;
+    #else
+
+    #endif
+    vec2 screenSize;
+    MouseInfo* mouse;
+    // ConsoleLabConsoleData data;
+    void (*Tick)();
 } ConsoleLabConsoleAPI;
 
 void ConsoleInit(ConsoleLabConsoleAPI* console);
 vec2 ConsoleGetScreenSize(ConsoleLabConsoleAPI* console);
-
+void ConsoleHandleEvents(ConsoleLabConsoleAPI* console);
+// void ConsoleHandleEvents(ConsoleLabConsoleAPI* console, MouseInfo* mouse);
+void ConsoleLabConsoleTick();
 
 void ConsoleLabConsoleInit(ConsoleLabConsoleAPI* Console){
+    Console->Tick = ConsoleLabConsoleTick;
+    Console->mouse;// = ;
 }
-
-#ifdef ConsoleLabGlobalConsole
-ConsoleLabConsoleAPI Console;
-#endif
 
 #ifdef _cplusplus
 }
