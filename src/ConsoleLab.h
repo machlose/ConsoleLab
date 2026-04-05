@@ -14,6 +14,14 @@ extern "C" {
 #endif
 clContext* cl_global_context;
 
+//
+//
+//https://www.lookuptables.com/text/extended-ascii-table
+
+
+
+
+
 // example for every function
 // void cl_context_create(clContext* context, clResult* result);
 // #define cl_(...) cl_(cl_global_context, &cl_global_context->result, __VA_ARGS__)
