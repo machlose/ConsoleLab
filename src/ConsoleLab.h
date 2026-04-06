@@ -14,24 +14,22 @@ extern "C" {
 #endif
 clContext* cl_global_context;
 
-//
-//
 //https://www.lookuptables.com/text/extended-ascii-table
 
-
-
-
-
 // example for every function
-// void cl_context_create(clContext* context, clResult* result);
+// void cl_(clContext* context, clResult* result);
 // #define cl_(...) cl_(cl_global_context, &cl_global_context->result, __VA_ARGS__)
 // #define cl_(result, ...) cl_(cl_global_context, result, __VA_ARGS__)
 
-void cl_context_create(clContext* context, clResult* result);
-#define cl_context_create() cl_context_create(cl_global_context, &cl_global_context->result)
-#define cl_context_create(result) cl_context_create(cl_global_context, result)
-void cl_context_destroy(clContext* context);
-#define cl_context_create() cl_context_create(cl_global_context)
+void cl_create_context(clContext* context, clResult* result);
+#define cl_create_context() cl_create_context(cl_global_context, &cl_global_context->result)
+#define cl_create_context(result) cl_create_context(cl_global_context, result)
+void cl_destroy_context(clContext* context);
+#define cl_destroy_context() cl_destroy_context(cl_global_context)
+void cl_create_window(clContext* context, clResult* result);
+void cl_destroy_window(clContext* context);
+void cl_get_window_handle(clContext* context, clResult* result);
+void cl_draw_sprite(clContext* context, clResult* result);
 
 
 #ifdef __cplusplus
