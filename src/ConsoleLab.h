@@ -3,7 +3,7 @@
 #define CL_VERSION_MAJOR 0
 #define CL_VERSION_MINOR 0
 #include "ConsoleLabFlags.c" // delete later
-#include "types.c"
+// #include "types.c"
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -12,7 +12,16 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+typedef double cltime;
+typedef enum clOS clOS;
+typedef enum clMode clMode;
+typedef enum clState clState;
+typedef enum clResult clResult;
+typedef struct clWindow clWindow;
+typedef struct clContext clContext;
 clContext* cl_global_context;
+
+
 
 //https://www.lookuptables.com/text/extended-ascii-table
 
@@ -28,7 +37,8 @@ void cl_destroy_context(clContext* context);
 #define cl_destroy_context() cl_destroy_context(cl_global_context)
 void cl_create_window(clContext* context, clResult* result);
 void cl_destroy_window(clContext* context);
-void cl_get_window_handle(clContext* context, clResult* result);
+void cl_get_console_handle(clContext* context, clResult* result);
+void cl_set_console_buffer(clContext* context, clResult* result);
 void cl_draw_sprite(clContext* context, clResult* result);
 
 
