@@ -4,7 +4,6 @@
 #define CL_VERSION_MAJOR 0
 #define CL_VERSION_MINOR 0
 #define CL_INCLUDE_IMPLEMENTATION
-#include "helpers/colors.c"
 
 
 #include "vec.c"
