@@ -1,13 +1,13 @@
 #include <windows.h>
 
-struct clWindow{
+typedef struct clWindow{
     //windows
     HANDLE hOut;
     HANDLE hIn;
 
 };
 
-struct clContext{
+typedef struct clContext{
     clOS os;
     clMode mode;
     clState state;

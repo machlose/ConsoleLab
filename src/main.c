@@ -1,9 +1,7 @@
 #include "ConsoleLab.h"
+#include "Views/ChessBoard.c"
 #include <stdio.h>
-
 int main(){
-    clConsoleSprite sprite;
-    
-    clConsoleSpriteCreate(&sprite, 4, 4, 4, 5);
+    printf("%s",RenderChessBoard());
     return 0;
 }

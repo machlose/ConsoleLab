@@ -3,10 +3,8 @@
 #define CL_VERSION_MAJOR 0
 #define CL_VERSION_MINOR 0
 
-
 #include "vec.c"
-#include <stdlib.h>
-#include <stdio.h>
+// #include <stdlib.h>
 // #include <stdbool.h>
 
 #ifdef __cplusplus
@@ -33,9 +31,9 @@ typedef enum {
 
 typedef struct clWindow clWindow;
 typedef struct clContext clContext;
-typedef struct clChar clChar;
-typedef struct clString clString; 
-typedef struct clConsoleSprite clConsoleSprite;
+
+
+
 
 clContext* clGlobalContext;
 
@@ -46,14 +44,6 @@ clContext* clGlobalContext;
 
 void clInit(clContext* context, clResult* result);
 void clClose(clContext* context, clResult* result);
-
-
-
-
-void clConsoleSpriteInit(clConsoleSprite* sprite);
-void clConsoleSpriteFree(clConsoleSprite* sprite);
-void clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height);
-void clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions);
 
 #ifdef __cplusplus
 }

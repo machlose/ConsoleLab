@@ -11,36 +11,13 @@
 #include "ConsoleLab_unix.c"
 #endif
 
-#include "string.c"
 
+//functions implemetations here
 struct clConsoleSprite{
-    vec2 position;
-    vec2 dimensions;
-    clChar* buffer;
+    char* buffer;
+    vec2 pos;
+    vec2 dim;
+    vec3 color;
 };
-
-void clConsoleSpriteInit(clConsoleSprite* sprite){
-    sprite->buffer = malloc(vec2_sum(sprite->dimensions));
-    if(!sprite->buffer){
-        return;
-    }
-    //succes
-}
-
-void clConsoleSpriteFree(clConsoleSprite* sprite){
-    free(sprite);
-}
-
-void clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height){
-    sprite->position = Vec2(x, y);
-    sprite->dimensions = Vec2(width, height);
-    clConsoleSpriteInit(sprite);
-}
-
-void clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions){
-    sprite->position = position;
-    sprite->dimensions = dimensions;
-    clConsoleSpriteInit(sprite);
-}
 
 //TODO funkcja do printowania sprita na inny sprite, i do printowania sprita do konsoli i najpierw printowac na prite BUFFER i z buffera na kosole
