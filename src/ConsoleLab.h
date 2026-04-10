@@ -33,24 +33,34 @@ typedef enum {
 
 typedef struct clWindow clWindow;
 typedef struct clContext clContext;
+
 typedef struct clChar clChar;
 typedef struct clString clString; 
 typedef struct clConsoleSprite clConsoleSprite;
+struct clConsoleSprite{
+    vec2 position;
+    vec2 dimensions;
+    clChar* buffer;
+};
 
 clContext* clGlobalContext;
+clResult clGlobalResult;
 
 // example for every function
-// void cl(clContext* context, clResult* result);
-// #define cl(...) cl(clGlobalContext, &clGlobalContext->result, __VA_ARGS__)
-// #define cl(result, ...) cl(clGlobalContext, result, __VA_ARGS__)
+// void (clContext* context, clResult* result);
+// #define (...) (clGlobalContext, &clGlobalContext->result, __VA_ARGS__)
+// #define (result, ...) (clGlobalContext, result, __VA_ARGS__)
 
 void clInit(clContext* context, clResult* result);
-void clClose(clContext* context, clResult* result);
+#define clInit(...) clInit(clGlobalContext, &clGlobalContext->result, __VA_ARGS__)
+#define clInit(result, ...) clInit(clGlobalContext, result, __VA_ARGS__)
+void clClose(clContext* context);
+#define clClose() clClose(clGlobalContext)
 
 
 
 
-void clConsoleSpriteInit(clConsoleSprite* sprite);
+int clConsoleSpriteInit(clConsoleSprite* sprite);
 void clConsoleSpriteFree(clConsoleSprite* sprite);
 void clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height);
 void clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions);

@@ -13,34 +13,57 @@
 
 #include "string.c"
 
-struct clConsoleSprite{
-    vec2 position;
-    vec2 dimensions;
-    clChar* buffer;
-};
 
-void clConsoleSpriteInit(clConsoleSprite* sprite){
-    sprite->buffer = malloc(vec2_sum(sprite->dimensions));
-    if(!sprite->buffer){
-        return;
+// void clInit(clContext* context, clResult* result){
+    
+// }
+
+
+int clConsoleSpriteInit(clConsoleSprite* sprite) {
+    if (!sprite) return 1;
+
+    if (sprite->dimensions.x == 0 || sprite->dimensions.y == 0) {
+        sprite->buffer = NULL;
+        return 2;
     }
-    //succes
+
+    size_t size = sprite->dimensions.x * sprite->dimensions.y;
+    if (size / sprite->dimensions.x != sprite->dimensions.y) {
+        sprite->buffer = NULL;
+        return 3;
+    }
+
+    sprite->buffer = malloc(size * sizeof(*sprite->buffer));
+    if (!sprite->buffer) {
+        return 4;
+    }
+    return 0;
 }
 
 void clConsoleSpriteFree(clConsoleSprite* sprite){
+    if (!sprite) return;
+    free(sprite->buffer);
     free(sprite);
 }
 
-void clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height){
+int clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height){
     sprite->position = Vec2(x, y);
     sprite->dimensions = Vec2(width, height);
-    clConsoleSpriteInit(sprite);
+    if(!clConsoleSpriteInit(sprite)){
+        //error handling
+        return 1;
+    }
+    return 0;
 }
 
-void clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions){
+int clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions){
     sprite->position = position;
     sprite->dimensions = dimensions;
-    clConsoleSpriteInit(sprite);
+    if(!clConsoleSpriteInit(sprite)){
+        //error handling
+        return 1;
+    }
+    return 0;
 }
 
 //TODO funkcja do printowania sprita na inny sprite, i do printowania sprita do konsoli i najpierw printowac na prite BUFFER i z buffera na kosole
