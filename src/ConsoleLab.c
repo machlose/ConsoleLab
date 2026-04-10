@@ -18,6 +18,11 @@
     
 // }
 
+void clCharInit(clChar* clCharacter,char character, RGBA backgroundColor, RGBA foregroundColor){
+    clCharacter->character = character;
+    clCharacter->backgroundColor = backgroundColor;
+    clCharacter->foregroundColor = foregroundColor;
+}
 
 int clConsoleSpriteInit(clConsoleSprite* sprite) {
     if (!sprite) return 1;

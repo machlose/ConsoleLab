@@ -4,8 +4,9 @@
 #include "vec.c"
 
 struct clChar{
-    unsigned char asciCharacter;
-    vec3 color;
+    char character;
+    RGBA backgroundColor;
+    RGBA foregroundColor;
 };
 
 struct clString{

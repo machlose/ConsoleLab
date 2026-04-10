@@ -16,6 +16,7 @@ int main(){
 // #include "Views/ChessBoard.c"
 // #include <stdio.h>
 // int main(){
-//     printf("%s",RenderChessBoard());
+//     clConsoleSprite sprite;
+//     RenderChessBoard(&sprite);
 //     return 0;
 // }

@@ -9,6 +9,7 @@
 #include "vec.c"
 #include <stdlib.h>
 #include <stdio.h>
+#include "helpers/virtualTerminalHelper.c"
 // #include <stdbool.h>
 #define ESC "\x1b"
 #define CSI "\x1b["
@@ -37,8 +38,8 @@ typedef enum clMode{
 
 typedef struct clWindow clWindow;
 typedef struct clContext clContext;
-
 typedef struct clChar clChar;
+
 typedef struct clString clString; 
 typedef struct clConsoleSprite clConsoleSprite;
 struct clConsoleSprite{
@@ -64,10 +65,12 @@ void clClose(clContext* context);
 
 
 
+void clCharInit(clChar* clCharacter,char character, RGBA backgroundColor, RGBA foregroundColor);
+
 int clConsoleSpriteInit(clConsoleSprite* sprite);
 void clConsoleSpriteFree(clConsoleSprite* sprite);
-void clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height);
-void clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions);
+int clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height);
+int clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions);
 
 #ifdef __cplusplus
 }
