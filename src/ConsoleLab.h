@@ -1,33 +1,38 @@
+#pragma once
 #ifndef CONSOLELAB_H
 #define CONSOLELAB_H
 #define CL_VERSION_MAJOR 0
 #define CL_VERSION_MINOR 0
+#define CL_INCLUDE_IMPLEMENTATION
+#include "helpers/colors.c"
 
 
 #include "vec.c"
 #include <stdlib.h>
 #include <stdio.h>
 // #include <stdbool.h>
+#define ESC "\x1b"
+#define CSI "\x1b["
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-typedef enum {
+typedef enum clState{
     working
 } clState;
 
-typedef enum {
+typedef enum clResult{
     success,
     context_malloc_failure,
     failure
 } clResult;
 
-typedef enum {
+typedef enum clOS{
     windows,
     unix
 } clOS;
 
-typedef enum {
+typedef enum clMode{
     console_mode,
 } clMode;
 

@@ -592,6 +592,7 @@ static inline vec3 vec2_to_vec3(vec2 v, float z) { return (vec3){{ v.x, v.y, z }
  * ========================================================================= */
 
 /* ---- Konstruktory kolorów ----------------------------------------------- */
+typedef vec4 RGBA;
 
 static inline vec4 color_rgba(float r, float g, float b, float a) {
     return (vec4){{ r, g, b, a }};
