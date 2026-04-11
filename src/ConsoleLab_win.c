@@ -18,7 +18,6 @@ typedef struct clContext{
 } clContext;
 clWindow window;
 
-//functions implemetations here
 void changeEncoding(){
     system("chcp 65001");//freaky shit zmienia encoding znakow konsoli i czasem psuje wyswietlanie w tej vscodowej czemu coz ni chuj nie mam pojecia
 };
