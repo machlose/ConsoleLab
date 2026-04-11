@@ -13,7 +13,7 @@ const char* chessPieceSprites =
 char* RenderChessPiece(){
 
 }
-void* RenderChessBoard(clConsoleSprite* sprite){
+int RenderChessBoard(clConsoleSprite* sprite){
     const int displayCellProportions = 2;
     const int cellSize = 6;
     const int gridSize = 8;
@@ -31,7 +31,7 @@ void* RenderChessBoard(clConsoleSprite* sprite){
     for(int k = 0; k < gridSize;k++){
         for(int j = 0; j < cellSize;j++){
             for(int i = 0; i < gridSize;i++){
-                for(int i = 0; i < cellSize*displayCellProportions;i++){
+                for(int l = 0; l < cellSize*displayCellProportions;l++){
                     clChar character;
                     clCharInit(&character,' ',RGBA_NULL,RGBA_NULL);
                     if((i+k) % 2 == 0){
@@ -48,4 +48,5 @@ void* RenderChessBoard(clConsoleSprite* sprite){
             arrayPosition++;
         }
     }
+    return arrayPosition;
 }

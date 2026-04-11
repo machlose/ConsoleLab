@@ -5,13 +5,14 @@
 #error "ConsoleLab version mismatch between header and implementation"
 #endif
 
+#include "string.c"
+
 #ifdef _WIN32
 #include "ConsoleLab_win.c"
 #else
 #include "ConsoleLab_unix.c"
 #endif
 
-#include "string.c"
 
 
 // void clInit(clContext* context, clResult* result){

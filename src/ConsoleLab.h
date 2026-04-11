@@ -6,9 +6,9 @@
 #define CL_INCLUDE_IMPLEMENTATION
 
 
-#include "vec.c"
 #include <stdlib.h>
 #include <stdio.h>
+#include "vec.c"
 #include "helpers/virtualTerminalHelper.c"
 // #include <stdbool.h>
 #define ESC "\x1b"

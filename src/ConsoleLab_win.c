@@ -40,6 +40,38 @@ COORD GetConsoleCursorPosition(clWindow window){
     }
     return (COORD){};
 }
+void RenderSpriteString(clConsoleSprite* sprite,char* output,int length){
+    int index = 0;
+    while(index < length){
+        clChar* character = &sprite->buffer[index];
+        clChar characterVal = sprite->buffer[index];
+        char buffer[300] = "";
+
+        char background[200] = "";
+        if(character->backgroundColor.r == RGBA_NULL.r){
+            GetConsoleTextColorDefaultBackgroundString(background);
+        }
+        else{
+            GetConsoleTextBackgroundColorString(background,character->backgroundColor);
+        }
+
+        char foreground[200] = "";
+        if(character->foregroundColor.r == RGBA_NULL.r){
+            GetConsoleTextColorDefaultForegroundString(foreground);
+        }
+        else{
+            GetConsoleTextForegroundColorString(foreground,character->foregroundColor);
+        }
+
+        strcat(buffer,background);
+        strcat(buffer,foreground);
+        char characterValue[2] = {character->character,'\0'};
+        strcat(buffer,characterValue);
+
+        strcat(output,buffer);
+        index += 1;
+    }
+}
 
 void ConsoleInit(){
     window.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
