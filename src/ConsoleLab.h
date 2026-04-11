@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "vec.c"
+#include "helpers/stringHelper.c"
 #include "helpers/virtualTerminalHelper.c"
 // #include <stdbool.h>
 #define ESC "\x1b"

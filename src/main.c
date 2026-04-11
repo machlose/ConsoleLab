@@ -13,12 +13,18 @@
 
 
 #include "Views/ChessBoard.c"
+#include <time.h>
 
 int main(){
+    clock_t begin = clock();
+
     clConsoleSprite sprite;
     int len = RenderChessBoard(&sprite);
     char buffer[150000];
     RenderSpriteString(&sprite,buffer,len);
-    printf(buffer);
+
+    clock_t end = clock();
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("%f.5",time_spent);
     return 0;
 }

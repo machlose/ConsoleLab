@@ -42,10 +42,12 @@ COORD GetConsoleCursorPosition(clWindow window){
 }
 void RenderSpriteString(clConsoleSprite* sprite,char* output,int length){
     int index = 0;
+    char* outputEnd = output;
     while(index < length){
         clChar* character = &sprite->buffer[index];
         clChar characterVal = sprite->buffer[index];
         char buffer[300] = "";
+        char* bufferEnd = buffer;
 
         char background[200] = "";
         if(character->backgroundColor.r == RGBA_NULL.r){
@@ -63,12 +65,12 @@ void RenderSpriteString(clConsoleSprite* sprite,char* output,int length){
             GetConsoleTextForegroundColorString(foreground,character->foregroundColor);
         }
 
-        strcat(buffer,background);
-        strcat(buffer,foreground);
+        bufferEnd = strcatf(bufferEnd,background);
+        bufferEnd = strcatf(bufferEnd,foreground);
         char characterValue[2] = {character->character,'\0'};
-        strcat(buffer,characterValue);
+        bufferEnd = strcatf(bufferEnd,characterValue);
 
-        strcat(output,buffer);
+        outputEnd = strcatf(outputEnd,buffer);
         index += 1;
     }
 }

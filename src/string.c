@@ -13,8 +13,8 @@ struct clString{
     size_t length;
     size_t capacity;
     clChar* buffer;
+    clChar* end;
 };
-
 void clStringInit(clString* str){
     
 }
