@@ -8,7 +8,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <uchar.h>
 #include "vec.c"
+#include "string.c"
 #include "helpers/stringHelper.c"
 #include "helpers/virtualTerminalHelper.c"
 // #include <stdbool.h>

@@ -5,7 +5,6 @@
 #error "ConsoleLab version mismatch between header and implementation"
 #endif
 
-#include "string.c"
 
 #ifdef _WIN32
 #include "ConsoleLab_win.c"
@@ -71,5 +70,77 @@ int clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimens
     }
     return 0;
 }
+void GetSpriteFromCharSpriteMap(clConsoleSprite* destSprite,wchar_t* spriteMap,int x, int y, int h, int w, int mapH, int mapW){
+    if(x < 0 || x+w > mapW){
+        return;
+    }
+    if(y < 0 || y+h>mapH){
+        return;
+    }
 
+    const int destWidth = mapW;
+    const int startIndex = x+(y*destWidth);
+
+    int index = 0;
+    for(int yp = y; yp < y+h;yp++){
+        for(int xp = x; xp < x+w;xp++){
+            destSprite->buffer[index] = (clChar){.character = spriteMap[(yp*destWidth)+xp],RGBA_NULL,RGBA_NULL};
+            index++;
+        }
+    }
+}
+void WriteToSprite(clConsoleSprite* destSprite,clConsoleSprite* srcSprite){
+    if(srcSprite->position.x < 0 || srcSprite->position.x+srcSprite->dimensions.w>destSprite->dimensions.w){
+        return;
+    }
+    if(srcSprite->position.y < 0 || srcSprite->position.y+srcSprite->dimensions.h>destSprite->dimensions.h){
+        return;
+    }
+
+    const int destWidth = destSprite->dimensions.w;
+    const int startIndex = srcSprite->position.x+(srcSprite->position.y*destWidth);
+
+    int index = 0;
+    for(int y = srcSprite->position.y; y < srcSprite->position.y+srcSprite->dimensions.h;y++){
+        for(int x = srcSprite->position.x; y < srcSprite->position.x+srcSprite->dimensions.w;x++){
+            destSprite->buffer[(y*destWidth)+x] = srcSprite->buffer[index];
+            index++;
+        }
+    }
+}
+
+void RenderSpriteString(clConsoleSprite* sprite,char* output,int length){
+    int index = 0;
+    char* outputEnd = output;
+    while(index < length){
+        clChar* character = &sprite->buffer[index];
+        clChar characterVal = sprite->buffer[index];
+        char buffer[300] = "";
+        char* bufferEnd = buffer;
+
+        char background[200] = "";
+        if(character->backgroundColor.r == RGBA_NULL.r){
+            GetConsoleTextColorDefaultBackgroundString(background);
+        }
+        else{
+            GetConsoleTextBackgroundColorString(background,character->backgroundColor);
+        }
+
+        char foreground[200] = "";
+        if(character->foregroundColor.r == RGBA_NULL.r){
+            GetConsoleTextColorDefaultForegroundString(foreground);
+        }
+        else{
+            GetConsoleTextForegroundColorString(foreground,character->foregroundColor);
+        }
+
+        bufferEnd = strcatf(bufferEnd,background);
+        bufferEnd = strcatf(bufferEnd,foreground);
+        char characterValue[2] = {character->character,'\0'};
+        bufferEnd = strcatf(bufferEnd,characterValue);
+
+        outputEnd = strcatf(outputEnd,buffer);
+        index += 1;
+    }
+}
 //TODO funkcja do printowania sprita na inny sprite, i do printowania sprita do konsoli i najpierw printowac na prite BUFFER i z buffera na kosole

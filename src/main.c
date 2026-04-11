@@ -14,9 +14,18 @@
 
 #include "Views/ChessBoard.c"
 #include <time.h>
+#include <uchar.h>
 
 int main(){
     clock_t begin = clock();
+
+
+    char buffer[10000];
+    clConsoleSprite test;
+    clConsoleSpriteCreate(&test,0,0,6,6);
+    GetSpriteFromCharSpriteMap(&test,chessPieceSprites,0,0,6,6,6,73);
+    RenderSpriteString(&test,buffer,6*6);
+    printf(chessPieceSprites);
 
     clConsoleSprite sprite;
     int len = RenderChessBoard(&sprite);
