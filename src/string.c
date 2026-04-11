@@ -17,24 +17,56 @@ struct clString{
     clChar* end;
 };
 
-#define size8_t unsigned char;
-typedef struct string string;
+typedef  unsigned char size8_t;
+typedef struct stringU stringU;
 typedef struct unicodeChar unicodeChar;
 
-struct unicodeChar{
-    char* character;
-    size8_t length;
-};
-
-struct string{
-    size_t length;
+struct stringU{
+    size_t length; // unicode length
     size_t capacity;
-    size_t unicodeLength;
-    unicodeChar* unicodeMaping;
     char* buffer;
     char* end;
 };
 
+size8_t getCharLength(char* start){
+    size8_t i = 7;
+    while(((*start)&(1<<i)) > 0){ i--; }
+    return 7-i;
+}
+
+void stringUInit(stringU* str,char* buffer){
+    int desiredLen;
+    size_t len = strlen(buffer);
+
+    for(int i = 0; i < 32; i++){
+        if((len&(1<<i)) > 0){
+            desiredLen = ((1<<i)<<1);
+        }
+    };
+    str->buffer = calloc(desiredLen * sizeof(char),sizeof(char));
+    str->capacity = desiredLen;
+    str->length = len;
+
+    return;
+}
+
+void sequenceUnicodeString(char* buffer){
+    int index = 0;
+    size_t len = strlen(buffer);
+    while(index < len){
+        size8_t unicodeLen = getCharLength(buffer);
+        if(unicodeLen == 1){
+            continue;
+        }
+        if(unicodeLen == 0){
+            unicodeLen = 1;
+        }
+
+        for(int i = 0; i < unicodeLen;i++){
+            //process
+        }
+    };
+}
 void clStringInit(clString* str){
     
 }

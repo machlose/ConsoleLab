@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char32_t* chessPieceSprites = 
+unsigned char* chessPieceSprites = 
 "                                                     »«         ─╡╞─     \n"
 "                            ▄_           <>         (██)        (██)     \n"
 "    (██)       [████]       ███\\        (██)        ▀██▀        ▀██▀     \n"
@@ -18,7 +18,6 @@ int RenderChessBoard(clConsoleSprite* sprite){
     const int cellSize = 6;
     const int gridSize = 8;
 
-    printf(chessPieceSprites);
     int arrayPosition = 0;
     clConsoleSpriteCreate(sprite,0,0,displayCellProportions*cellSize*gridSize+1,cellSize*gridSize);
     const RGBA colors[] = {

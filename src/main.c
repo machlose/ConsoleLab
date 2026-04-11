@@ -20,17 +20,20 @@ int main(){
     clock_t begin = clock();
 
 
-    char buffer[10000];
-    clConsoleSprite test;
-    clConsoleSpriteCreate(&test,0,0,6,6);
-    GetSpriteFromCharSpriteMap(&test,chessPieceSprites,0,0,6,6,6,73);
-    RenderSpriteString(&test,buffer,6*6);
-    printf(chessPieceSprites);
+    // char buffer[10000];
+    // clConsoleSprite test;
+    // clConsoleSpriteCreate(&test,0,0,6,6);
+    // GetSpriteFromCharSpriteMap(&test,chessPieceSprites,0,0,6,6,6,73);
+    // RenderSpriteString(&test,buffer,6*6);
+    // printf(chessPieceSprites);
 
     clConsoleSprite sprite;
     int len = RenderChessBoard(&sprite);
     char buffer[150000];
     RenderSpriteString(&sprite,buffer,len);
+    printf(buffer);
+    stringU test;
+    stringUInit(&test,"███");
 
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;

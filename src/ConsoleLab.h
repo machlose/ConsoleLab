@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <uchar.h>
 #include "vec.c"
-#include "string.c"
 #include "helpers/stringHelper.c"
 #include "helpers/virtualTerminalHelper.c"
 // #include <stdbool.h>
@@ -74,6 +73,8 @@ int clConsoleSpriteInit(clConsoleSprite* sprite);
 void clConsoleSpriteFree(clConsoleSprite* sprite);
 int clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height);
 int clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions);
+
+#include "string.c"
 
 #ifdef __cplusplus
 }
