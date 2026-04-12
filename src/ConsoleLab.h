@@ -60,7 +60,7 @@ clResult clGlobalResult;
 
 void clInit(clContext* context, clResult* result);
 #define clInit(...) clInit(clGlobalContext, &clGlobalContext->result, __VA_ARGS__)
-#define clInit(result, ...) clInit(clGlobalContext, result, __VA_ARGS__)
+// #define clInit(result, ...) clInit(clGlobalContext, result, __VA_ARGS__)
 void clClose(clContext* context);
 #define clClose() clClose(clGlobalContext)
 
