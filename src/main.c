@@ -29,11 +29,13 @@ int main(){
 
     clConsoleSprite sprite;
     int len = RenderChessBoard(&sprite);
-    char buffer[150000];
+    char buffer[250000];
     RenderSpriteString(&sprite,buffer,len);
     printf(buffer);
-    stringU test;
+    string test;
     stringUInit(&test,"███");
+    stringCat(&test,"███");
+    printf(test.buffer);
 
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;

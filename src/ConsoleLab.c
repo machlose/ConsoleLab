@@ -114,7 +114,6 @@ void RenderSpriteString(clConsoleSprite* sprite,char* output,int length){
     char* outputEnd = output;
     while(index < length){
         clChar* character = &sprite->buffer[index];
-        clChar characterVal = sprite->buffer[index];
         char buffer[300] = "";
         char* bufferEnd = buffer;
 

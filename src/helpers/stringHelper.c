@@ -4,3 +4,8 @@ char* strcatf( char* dest, char* src ) // makes this shi like 5 times faster or 
     while (*dest++ = *src++);
     return --dest;
 }
+char* strend(char* dest)
+{
+    while (*dest) dest++;
+    return --dest;
+}
