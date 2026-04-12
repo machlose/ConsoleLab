@@ -44,3 +44,11 @@ void ConsoleInit(){
     window.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     window.hIn = GetStdHandle(STD_INPUT_HANDLE);
 }
+
+void ConsoleLabGetWindow(){
+    
+}
+
+void ConsoleLabCreateWindow(){
+
+}
