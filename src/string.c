@@ -37,7 +37,7 @@ void stringUInit(string* str,char* buffer);
 void sequenceUnicodeString(char* buffer);
 void stringCat(string* dest,char* src);
 void stringCatString(string* dest,string* src);
-void stringExtendBuffer(string* dest);
+void stringExtendBuffer(string* dest,int desiredCapacity);
 
 size8_t getCharLength(char* start){
     size8_t i = 7;
@@ -150,7 +150,7 @@ void stringCat(string* dest,char* src){
     dest->unicodeLength+=charStringUnicodeLenAndLen(src,&len);
     dest->length+=len;
     if(dest->length >= dest->capacity){
-        stringExtendBuffer(dest);
+        stringExtendBuffer(dest,dest->length);
     }
     while (*dest->end) dest->end++;
     while (*dest->end++ = *src++);
@@ -159,8 +159,11 @@ void stringCat(string* dest,char* src){
 void stringCatString(string* dest,string* src){
     stringCat(dest,src->buffer);
 }
-void stringExtendBuffer(string* dest){
-    dest->capacity*=2;
+void stringExtendBuffer(string* dest,int desiredCapacity){
+    while(dest->capacity < desiredCapacity){
+        dest->capacity*=2;
+    }
+
     char* prevBuffer = dest->buffer;
     char* newBuffer = calloc(dest->capacity,sizeof(char));
     strcpy(newBuffer,prevBuffer);
