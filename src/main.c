@@ -43,6 +43,10 @@ int main(){
     // RenderSpriteString(&test,buffer,6*6);
     // printf(chessPieceSprites);
 
+
+    // IMPORTANTE Writeujac sprite na sprite bedziemy brac pod uwage alphe z koloru i robic color mixing na podstawie alphy
+
+
     clSprite sprite;
     int len = RenderChessBoard(&sprite);
     char buffer[250000];
