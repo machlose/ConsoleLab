@@ -18,11 +18,11 @@
     
 // }
 
-void clCharInit(clChar* clCharacter,char* character, RGBA backgroundColor, RGBA foregroundColor){
-    clCharacter->character = character;
-    clCharacter->backgroundColor = backgroundColor;
-    clCharacter->foregroundColor = foregroundColor;
-}
+// void clCharInit(clChar* clCharacter,char* character, RGBA backgroundColor, RGBA foregroundColor){
+//     clCharacter->character = character;
+//     clCharacter->backgroundColor = backgroundColor;
+//     clCharacter->foregroundColor = foregroundColor;
+// }
 
 int clSpriteInit(clSprite* sprite) {
     if (!sprite) return 1;
@@ -265,7 +265,7 @@ typedef struct clInput{
 
 typedef struct clBuffer{
     clSprite buffers[2];
-
+    clSprite* currentBuffer;
 } clBuffer;
 
 
@@ -286,7 +286,9 @@ clInput* ConsoleLabCreateInputHandle(){
 }
 
 void clCharSetBuffer(clChar* clchar, char* buffer ,size8_t unicodeLen){
-    memcpy(clchar->character, buffer, unicodeLen);
+    clchar->unicodeLen = unicodeLen;
+    memcpy(clchar->character, buffer, clchar->unicodeLen);
+    printf("%s", clchar->character);
 }
 
 void clSequenceUnicodeString(clChar* buffer, size_t size, char* unicodeBuffer){
@@ -294,7 +296,7 @@ void clSequenceUnicodeString(clChar* buffer, size_t size, char* unicodeBuffer){
         return;
     }
     int counter = 0;
-    while((*unicodeBuffer)){
+    while((*unicodeBuffer) && counter<size){
         size8_t unicodeLen = getCharLength(unicodeBuffer);
         if(unicodeLen == 1){
             unicodeBuffer++;
@@ -325,16 +327,13 @@ clSprite* ConsoleLabCreateSprite(char* input, vec2 position, vec2 dimensions){
 
     size_t size = sprite->dimensions.x * sprite->dimensions.y;
     sprite->buffer = calloc(size, sizeof(*sprite->buffer));
-    
     if (!sprite->buffer) {
         free(sprite);
         return NULL;
     }
-
     if (input) {
         clSequenceUnicodeString(sprite->buffer, size, input);
     }
-
     return sprite;
 }
 

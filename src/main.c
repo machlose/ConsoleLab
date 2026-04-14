@@ -1,6 +1,29 @@
 #include <stdio.h>
 #include "ConsoleLab.h"
 
+void ConsoleLabInit(){
+
+}
+void ConsoleLabClose(){
+
+}
+
+void ConsoleLabFlipBuffer(clBuffer* buffer){
+
+}
+
+void ConsoleLabFPS(size_t targetFPS){
+
+}
+
+void DrawSpriteToSprite(clSprite* sprite, clSprite* sprite2){
+    
+}
+
+void ConsoleLabDrawSprite(clBuffer* buffer, clSprite* sprite){
+    DrawSpriteToSprite(buffer->currentBuffer, sprite);
+}
+
 int main(){
     ConsoleLabInit();
 
@@ -15,11 +38,12 @@ int main(){
         }
         clSprite* sprite = ConsoleLabCreateSprite("ascii art(without \ns because I want it to be handled by size when drawing)", input->mousePos, Vec2(5, 5));//if input string is bigger than size trim it  
         ConsoleLabDrawSprite(buffer, sprite);
-
         ConsoleLabFlipBuffer(buffer);//draws buffer to windows console
         ConsoleLabFPS(60);//target fps
+        run = 0;
     }
     ConsoleLabClose();
+    printf("ended");
     return 0;
 }
 

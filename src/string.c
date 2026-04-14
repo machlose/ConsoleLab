@@ -3,11 +3,13 @@
 #include "ConsoleLab.h"
 #include "vec.c"
 
+typedef  unsigned char size8_t;
 
 struct clChar{
-    char* character;
+    char character[4];
     RGBA backgroundColor;
     RGBA foregroundColor;
+    size8_t unicodeLen;
 };
 
 struct clString{
@@ -17,7 +19,7 @@ struct clString{
     clChar* end;
 };
 
-typedef  unsigned char size8_t;
+
 typedef struct string string;
 typedef struct unicodeChar unicodeChar;
 
