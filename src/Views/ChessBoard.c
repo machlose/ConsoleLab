@@ -13,13 +13,13 @@ unsigned char* chessPieceSprites =
 char* RenderChessPiece(){
 
 }
-int RenderChessBoard(clConsoleSprite* sprite){
+int RenderChessBoard(clSprite* sprite){
     const int displayCellProportions = 2;
     const int cellSize = 6;
     const int gridSize = 8;
 
     int arrayPosition = 0;
-    clConsoleSpriteCreate(sprite,0,0,displayCellProportions*cellSize*gridSize+1,cellSize*gridSize);
+    clSpriteCreate(sprite,0,0,displayCellProportions*cellSize*gridSize+1,cellSize*gridSize);
     const RGBA colors[] = {
         (RGBA){.r=255,.g=255,.b=255},
         (RGBA){.r=0,.g=0,.b=0 }

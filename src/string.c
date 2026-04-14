@@ -5,7 +5,7 @@
 
 
 struct clChar{
-    char character;
+    char* character;
     RGBA backgroundColor;
     RGBA foregroundColor;
 };
@@ -130,7 +130,7 @@ void stringUInit(string* str,char* buffer){
     return;
 }
 
-void sequenceUnicodeString(char* buffer){
+void sequenceUnicodeString( char* buffer){
     int counter = 0;
     while((*buffer)){
         size8_t unicodeLen = getCharLength(buffer);
@@ -140,6 +140,7 @@ void sequenceUnicodeString(char* buffer){
         if(unicodeLen == 0){
             unicodeLen = 1;
         }
+
         buffer+=unicodeLen;
         counter++;
     }

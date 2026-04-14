@@ -43,12 +43,15 @@ typedef struct clContext clContext;
 typedef struct clChar clChar;
 
 typedef struct clString clString; 
-typedef struct clConsoleSprite clConsoleSprite;
-struct clConsoleSprite{
+typedef struct clSprite clSprite;
+struct clSprite{
     vec2 position;
     vec2 dimensions;
+    RGBA backgroundColor;
+    RGBA foregroundColor;
     clChar* buffer;
 };
+
 
 clContext* clGlobalContext;
 clResult clGlobalResult;
@@ -60,19 +63,18 @@ clResult clGlobalResult;
 
 void clInit(clContext* context, clResult* result);
 #define clInit(...) clInit(clGlobalContext, &clGlobalContext->result, __VA_ARGS__)
-#define clInit(result, ...) clInit(clGlobalContext, result, __VA_ARGS__)
 void clClose(clContext* context);
 #define clClose() clClose(clGlobalContext)
 
 
 
 
-void clCharInit(clChar* clCharacter,char character, RGBA backgroundColor, RGBA foregroundColor);
+void clCharInit(clChar* clCharacter,char* character, RGBA backgroundColor, RGBA foregroundColor);
 
-int clConsoleSpriteInit(clConsoleSprite* sprite);
-void clConsoleSpriteFree(clConsoleSprite* sprite);
-int clConsoleSpriteCreate(clConsoleSprite* sprite, float x, float y, float width, float height);
-int clConsoleSpriteCreateVec(clConsoleSprite* sprite, vec2 position, vec2 dimensions);
+int clSpriteInit(clSprite* sprite);
+void clSpriteFree(clSprite* sprite);
+int clSpriteCreate(clSprite* sprite, float x, float y, float width, float height);
+int clSpriteCreateVec(clSprite* sprite, vec2 position, vec2 dimensions);
 
 #include "string.c"
 
