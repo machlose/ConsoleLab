@@ -597,7 +597,16 @@ static inline vec3 vec2_to_vec3(vec2 v, VECTYPE z) { return (vec3){{ v.x, v.y, z
 
 /* ---- Konstruktory kolorów ----------------------------------------------- */
 typedef vec4 RGBA;
-#define RGBA_NULL (RGBA){.r=-1,.g=-1,.b=-1,.a=-1}
+typedef enum ColorName{
+    Clear_c,
+    White_c,
+    Black_c
+} ColorName;
+RGBA colorTable[512] = {
+    (RGBA){.r=0,.g=0,.b=0,.a=0},
+    (RGBA){.r=255,.g=255,.b=255,.a=1},
+    (RGBA){.r=0,.g=0,.b=0,.a=1}
+};
 
 static inline vec4 color_rgba(VECTYPE r, VECTYPE g, VECTYPE b, VECTYPE a) {
     return (vec4){{ r, g, b, a }};

@@ -11,9 +11,9 @@ void GetConsoleTextColorDefaultForegroundString(char* buffer){
 void GetConsoleTextColorDefaultBackgroundString(char* buffer){
     strcpy(buffer,CSI "49m");
 }
-void GetConsoleTextForegroundColorString(char* buffer,RGBA color){
-    sprintf(buffer,CSI "38;2;%d;%d;%dm",color.r,color.g,color.b);
+void GetConsoleTextForegroundColorString(char* buffer,RGBA* color){
+    sprintf(buffer,CSI "38;2;%d;%d;%dm",color->r,color->g,color->b);
 }
-void GetConsoleTextBackgroundColorString(char* buffer,RGBA color){
-    sprintf(buffer,CSI "48;2;%d;%d;%dm",color.r,color.g,color.b);
+void GetConsoleTextBackgroundColorString(char* buffer,RGBA* color){
+    sprintf(buffer,CSI "48;2;%d;%d;%dm",color->r,color->g,color->b);
 }

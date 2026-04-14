@@ -6,8 +6,8 @@
 
 struct clChar{
     char* character;
-    RGBA backgroundColor;
-    RGBA foregroundColor;
+    RGBA* backgroundColor;
+    RGBA* foregroundColor;
 };
 
 struct clString{

@@ -25,11 +25,11 @@ void changeEncoding(){
 void SetConsoleTextColorDefault(){
     printf(CSI "0m");
 }
-void SetConsoleTextForegroundColor(RGBA color){
-    printf(CSI "38;2;%g;%g;%gm",color.r,color.g,color.b);
+void SetConsoleTextForegroundColor(RGBA* color){
+    printf(CSI "38;2;%g;%g;%gm",color->r,color->g,color->b);
 }
-void SetConsoleTextBackgroundColor(RGBA color){
-    printf(CSI "48;2;%g;%g;%gm",color.r,color.g,color.b);
+void SetConsoleTextBackgroundColor(RGBA* color){
+    printf(CSI "48;2;%g;%g;%gm",color->r,color->g,color->b);
 }
 COORD GetConsoleCursorPosition(clWindow window){
     CONSOLE_SCREEN_BUFFER_INFO csbi;

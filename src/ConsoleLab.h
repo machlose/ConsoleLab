@@ -47,8 +47,8 @@ typedef struct clSprite clSprite;
 struct clSprite{
     vec2 position;
     vec2 dimensions;
-    RGBA backgroundColor;
-    RGBA foregroundColor;
+    RGBA* backgroundColor;
+    RGBA* foregroundColor;
     clChar* buffer;
 };
 
@@ -69,7 +69,7 @@ void clClose(clContext* context);
 
 
 
-void clCharInit(clChar* clCharacter,char* character, RGBA backgroundColor, RGBA foregroundColor);
+void clCharInit(clChar* clCharacter,char* character, RGBA* backgroundColor, RGBA* foregroundColor);
 
 int clSpriteInit(clSprite* sprite);
 void clSpriteFree(clSprite* sprite);

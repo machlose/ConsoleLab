@@ -20,11 +20,7 @@ int RenderChessBoard(clSprite* sprite){
 
     int arrayPosition = 0;
     clSpriteCreate(sprite,0,0,displayCellProportions*cellSize*gridSize+1,cellSize*gridSize);
-    const RGBA colors[] = {
-        (RGBA){.r=255,.g=255,.b=255},
-        (RGBA){.r=0,.g=0,.b=0 }
-    };
-    sprite->buffer[arrayPosition]=(clChar){.character='\n',.foregroundColor=RGBA_NULL,.backgroundColor=RGBA_NULL};
+    sprite->buffer[arrayPosition]=(clChar){.character="\n",.foregroundColor=&colorTable[Clear_c],.backgroundColor=&colorTable[Clear_c]};
     arrayPosition++;
 
     for(int k = 0; k < gridSize;k++){
@@ -32,18 +28,18 @@ int RenderChessBoard(clSprite* sprite){
             for(int i = 0; i < gridSize;i++){
                 for(int l = 0; l < cellSize*displayCellProportions;l++){
                     clChar character;
-                    clCharInit(&character,' ',RGBA_NULL,RGBA_NULL);
+                    clCharInit(&character," ",&colorTable[Clear_c],&colorTable[Clear_c]);
                     if((i+k) % 2 == 0){
-                        character.backgroundColor = colors[0];
+                        character.backgroundColor = &colorTable[White_c];
                     }
                     else{
-                        character.backgroundColor = colors[1];
+                        character.backgroundColor = &colorTable[Black_c];
                     }
                     sprite->buffer[arrayPosition]=character;
                     arrayPosition++;
                 }
             }
-            sprite->buffer[arrayPosition]=(clChar){.character='\n',.foregroundColor=RGBA_NULL,.backgroundColor=RGBA_NULL};
+            sprite->buffer[arrayPosition]=(clChar){.character="\n",.foregroundColor=&colorTable[Clear_c],.backgroundColor=&colorTable[Clear_c]};
             arrayPosition++;
         }
     }

@@ -18,7 +18,7 @@
     
 // }
 
-void clCharInit(clChar* clCharacter,char* character, RGBA backgroundColor, RGBA foregroundColor){
+void clCharInit(clChar* clCharacter,char* character, RGBA* backgroundColor, RGBA* foregroundColor){
     clCharacter->character = character;
     clCharacter->backgroundColor = backgroundColor;
     clCharacter->foregroundColor = foregroundColor;
@@ -84,7 +84,7 @@ int clSpriteCreateVec(clSprite* sprite, vec2 position, vec2 dimensions){
 //     int index = 0;
 //     for(int yp = y; yp < y+h;yp++){
 //         for(int xp = x; xp < x+w;xp++){
-//             destSprite->buffer[index] = (clChar){.character = spriteMap[(yp*destWidth)+xp],RGBA_NULL,RGBA_NULL};
+//             destSprite->buffer[index] = (clChar){.character = spriteMap[(yp*destWidth)+xp],&colorTable[Clear_c],&colorTable[Clear_c]};
 //             index++;
 //         }
 //     }
@@ -110,40 +110,40 @@ int clSpriteCreateVec(clSprite* sprite, vec2 position, vec2 dimensions){
 //     }
 // }
 
-// void RenderSpriteString(clSprite* sprite,char* output,int length){
-//     int index = 0;
-//     char* outputEnd = output;
-//     while(index < length){
+void RenderSpriteString(clSprite* sprite,char* output,int length){
+    int index = 0;
+    char* outputEnd = output;
+    while(index < length){
 
-//         clChar* character = sprite->buffer[index];
-//         char buffer[300] = "";
-//         char* bufferEnd = buffer;
+        clChar* character = &(sprite->buffer[index]);
+        char buffer[300] = "";
+        char* bufferEnd = buffer;
 
-//         char background[200] = "";
-//         if(character->backgroundColor.r == RGBA_NULL.r){
-//             GetConsoleTextColorDefaultBackgroundString(background);
-//         }
-//         else{
-//             GetConsoleTextBackgroundColorString(background,character->backgroundColor);
-//         }
+        char background[200] = "";
+        if(character->backgroundColor->a == colorTable[Clear_c].a){
+            GetConsoleTextColorDefaultBackgroundString(background);
+        }
+        else{
+            GetConsoleTextBackgroundColorString(background,character->backgroundColor);
+        }
 
-//         char foreground[200] = "";
-//         if(character->foregroundColor.r == RGBA_NULL.r){
-//             GetConsoleTextColorDefaultForegroundString(foreground);
-//         }
-//         else{
-//             GetConsoleTextForegroundColorString(foreground,character->foregroundColor);
-//         }
+        char foreground[200] = "";
+        if(character->foregroundColor->a == colorTable[Clear_c].a){
+            GetConsoleTextColorDefaultForegroundString(foreground);
+        }
+        else{
+            GetConsoleTextForegroundColorString(foreground,character->foregroundColor);
+        }
 
-//         bufferEnd = strcatf(bufferEnd,background);
-//         bufferEnd = strcatf(bufferEnd,foreground);
-//         char characterValue[2] = {character->character,'\0'};
-//         bufferEnd = strcatf(bufferEnd,characterValue);
+        bufferEnd = strcatf(bufferEnd,background);
+        bufferEnd = strcatf(bufferEnd,foreground);
+        char* characterValue = character->character;
+        bufferEnd = strcatf(bufferEnd,characterValue);
 
-//         outputEnd = strcatf(outputEnd,buffer);
-//         index += 1;
-//     }
-// }
+        outputEnd = strcatf(outputEnd,buffer);
+        index += 1;
+    }
+}
 //TODO funkcja do printowania sprita na inny sprite, i do printowania sprita do konsoli i najpierw printowac na prite BUFFER i z buffera na kosole
 
 
