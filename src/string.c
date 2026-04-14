@@ -6,7 +6,7 @@
 typedef  unsigned char size8_t;
 
 struct clChar{
-    char character[4];
+    char* character;
     RGBA* backgroundColor;
     RGBA* foregroundColor;
     size8_t unicodeLen;
