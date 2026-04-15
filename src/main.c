@@ -34,6 +34,7 @@
 
 int main(){
     clock_t begin = clock();
+    initChessPieceSprite();
 
 
     // char buffer[10000];
@@ -50,12 +51,12 @@ int main(){
     clSprite sprite;
     int len = RenderChessBoard(&sprite);
     char buffer[250000];
-    RenderSpriteString(&sprite,buffer,len);
+    // RenderSpriteString(&sprite,buffer,len);
+    RenderSpriteString(&chessPieceSprite,buffer,444);
     printf(buffer);
     string test;
     stringUInit(&test,"███");
     stringCat(&test,"███");
-    printf(test.buffer);
 
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;

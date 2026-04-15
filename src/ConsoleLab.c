@@ -60,6 +60,23 @@ int clSpriteCreate(clSprite* sprite, float x, float y, float width, float height
     }
     return 0;
 }
+void clSpriteBufferPopulate(clSprite* sprite, char* buffer){
+    char* p = buffer;
+    int index = 0;
+    while((*p)){
+        size8_t len = getCharLength(p);
+        if(len == 0){
+            len = 1;
+        }
+        char* pointer = calloc(4,sizeof(char));
+        memcpy(pointer,p,len);
+        sprite->buffer[index] = (clChar){.character=pointer,.backgroundColor=&colorTable[Clear_c],.foregroundColor=&colorTable[Clear_c]};
+
+        p = getNextUnicodeChar(p);
+        index++;
+    }
+    return 0;
+}
 
 int clSpriteCreateVec(clSprite* sprite, vec2 position, vec2 dimensions){
     sprite->position = position;
@@ -70,45 +87,45 @@ int clSpriteCreateVec(clSprite* sprite, vec2 position, vec2 dimensions){
     }
     return 0;
 }
-// void GetSpriteFromCharSpriteMap(clSprite* destSprite,char* spriteMap,int x, int y, int h, int w, int mapH, int mapW){
-//     if(x < 0 || x+w > mapW){
-//         return;
-//     }
-//     if(y < 0 || y+h>mapH){
-//         return;
-//     }
+void GetSpriteFromCharSpriteMap(clSprite* destSprite,clSprite* spriteMap,int x, int y, int h, int w, int mapH, int mapW){
+    if(x < 0 || x+w > mapW){
+        return;
+    }
+    if(y < 0 || y+h>mapH){
+        return;
+    }
 
-//     const int destWidth = mapW;
-//     const int startIndex = x+(y*destWidth);
+    const int destWidth = mapW;
+    const int startIndex = x+(y*destWidth);
 
-//     int index = 0;
-//     for(int yp = y; yp < y+h;yp++){
-//         for(int xp = x; xp < x+w;xp++){
-//             destSprite->buffer[index] = (clChar){.character = spriteMap[(yp*destWidth)+xp],&colorTable[Clear_c],&colorTable[Clear_c]};
-//             index++;
-//         }
-//     }
-// }
+    int index = 0;
+    for(int yp = y; yp < y+h;yp++){
+        for(int xp = x; xp < x+w;xp++){
+            destSprite->buffer[index] = (clChar){.character = spriteMap->buffer[(yp*destWidth)+xp].character,&colorTable[Clear_c],&colorTable[Clear_c]};
+            index++;
+        }
+    }
+}
 
-// void WriteToSprite(clSprite* destSprite,clSprite* srcSprite){
-//     if(srcSprite->position.x < 0 || srcSprite->position.x+srcSprite->dimensions.w>destSprite->dimensions.w){
-//         return;
-//     }
-//     if(srcSprite->position.y < 0 || srcSprite->position.y+srcSprite->dimensions.h>destSprite->dimensions.h){
-//         return;
-//     }
+void WriteToSprite(clSprite* destSprite,clSprite* srcSprite){
+    if(srcSprite->position.x < 0 || srcSprite->position.x+srcSprite->dimensions.w>destSprite->dimensions.w){
+        return;
+    }
+    if(srcSprite->position.y < 0 || srcSprite->position.y+srcSprite->dimensions.h>destSprite->dimensions.h){
+        return;
+    }
 
-//     const int destWidth = destSprite->dimensions.w;
-//     const int startIndex = srcSprite->position.x+(srcSprite->position.y*destWidth);
+    const int destWidth = destSprite->dimensions.w;
+    const int startIndex = srcSprite->position.x+(srcSprite->position.y*destWidth);
 
-//     int index = 0;
-//     for(int y = srcSprite->position.y; y < srcSprite->position.y+srcSprite->dimensions.h;y++){
-//         for(int x = srcSprite->position.x; y < srcSprite->position.x+srcSprite->dimensions.w;x++){
-//             destSprite->buffer[(y*destWidth)+x] = srcSprite->buffer[index];
-//             index++;
-//         }
-//     }
-// }
+    int index = 0;
+    for(int y = srcSprite->position.y; y < srcSprite->position.y+srcSprite->dimensions.h;y++){
+        for(int x = srcSprite->position.x; y < srcSprite->position.x+srcSprite->dimensions.w;x++){
+            destSprite->buffer[(y*destWidth)+x] = srcSprite->buffer[index];
+            index++;
+        }
+    }
+}
 
 void RenderSpriteString(clSprite* sprite,char* output,int length){
     int index = 0;

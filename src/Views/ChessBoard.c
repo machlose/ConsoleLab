@@ -2,13 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-unsigned char* chessPieceSprites = 
+char* chessPieceBuffer = 
 "                                                     »«         ─╡╞─     \n"
 "                            ▄_           <>         (██)        (██)     \n"
 "    (██)       [████]       ███\\        (██)        ▀██▀        ▀██▀     \n"
 "     ▐▌         ▐██▌        ████)       /██\\         ██          ██      \n"
 "     ██         ▐██▌        ▐██▌         ██          ██          ██      \n"
-"   ▄████▄      ▄████▄      ▄████▄      ▄████▄      ▄████▄      ▄████▄    ";
+"   ▄████▄      ▄████▄      ▄████▄      ▄████▄      ▄████▄      ▄████▄     ";
+clSprite chessPieceSprite;
+void initChessPieceSprite(){
+    clSpriteCreate(&chessPieceSprite,0,0,73,6);
+    clSpriteBufferPopulate(&chessPieceSprite,chessPieceBuffer);
+}
 
 char* RenderChessPiece(){
 

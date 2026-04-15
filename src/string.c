@@ -132,6 +132,21 @@ void stringUInit(string* str,char* buffer){
     return;
 }
 
+char* getNextUnicodeChar(char* buffer){
+    size8_t unicodeLen = getCharLength(buffer);
+    if(!(*buffer)){
+        return NULL;
+    }
+    if(unicodeLen == 1){
+        return NULL;
+    }
+    if(unicodeLen == 0){
+        unicodeLen = 1;
+    }
+
+    buffer+=unicodeLen;
+    return buffer;
+}
 void sequenceUnicodeString( char* buffer){
     int counter = 0;
     while((*buffer)){
