@@ -12,8 +12,6 @@
 #include "ConsoleLab_unix.c"
 #endif
 
-
-
 // void clInit(clContext* context, clResult* result){
     
 // }
@@ -142,4 +140,161 @@ void RenderSpriteString(clConsoleSprite* sprite,char* output,int length){
         index += 1;
     }
 }
+<<<<<<< Updated upstream
 //TODO funkcja do printowania sprita na inny sprite, i do printowania sprita do konsoli i najpierw printowac na prite BUFFER i z buffera na kosole
+=======
+//TODO funkcja do printowania sprita na inny sprite, i do printowania sprita do konsoli i najpierw printowac na prite BUFFER i z buffera na kosole
+
+
+
+
+
+
+
+
+
+
+
+clWindow* ConsoleLabGetWindow(){
+    clWindow* window;
+    return window;//undfined behavior
+}
+
+clBuffer* ConsoleLabCreateBuffer(){
+    clBuffer* buffer;
+    return buffer;//undfined behavior
+}
+
+clInput* ConsoleLabCreateInputHandle(){
+    clInput* input;
+    return input;//undfined behavior
+}
+
+void clCharSetBuffer(clChar* clchar, char* buffer ,size8_t unicodeLen){
+    clchar->unicodeLen = unicodeLen;
+    clchar->character = malloc(unicodeLen + 1);
+    memcpy(clchar->character, buffer, unicodeLen);
+    clchar->character[unicodeLen] = '\0';
+}
+
+void clSequenceUnicodeString(clChar* buffer, size_t size, char* unicodeBuffer){
+    if (!buffer || !unicodeBuffer || size == 0) {
+        return;
+    }
+    int counter = 0;
+    while((*unicodeBuffer) && counter<size){
+        size8_t unicodeLen = getCharLength(unicodeBuffer);
+        if(unicodeLen == 1){
+            unicodeBuffer++;
+            continue;
+        }
+        if(unicodeLen == 0){
+            unicodeLen = 1;
+        }
+        clCharSetBuffer(&buffer[counter], unicodeBuffer, unicodeLen);
+        unicodeBuffer+=unicodeLen;
+        counter++;
+    }
+    return;
+}
+
+clSprite* ConsoleLabCreateSprite(char* input, vec2 position, vec2 dimensions){
+    clSprite* sprite = malloc(sizeof(clSprite));
+    if(!sprite){
+        return NULL;
+    }
+    sprite->position = position;
+    sprite->dimensions = dimensions;
+
+    if(sprite->dimensions.x == 0 || sprite->dimensions.y == 0) {
+        sprite->buffer = NULL;
+        return sprite;
+    }
+
+    size_t size = sprite->dimensions.x * sprite->dimensions.y;
+    sprite->buffer = calloc(size, sizeof(*sprite->buffer));
+    if (!sprite->buffer) {
+        free(sprite);
+        return NULL;
+    }
+    if (input) {
+        clSequenceUnicodeString(sprite->buffer, size, input);
+    }
+    return sprite;
+}
+
+// void ConsoleLabHandleEvents(clWindow* window, clInput* input, clBuffer* buffer){
+//     //handle resizing windows console buffer and clBuffer if window resized
+
+// }
+
+void ConsoleLabTick(clWindow* window, clInput* input, clBuffer* buffer){
+    ConsoleLabHandleEvents(window, input, buffer);
+}
+
+void ConsoleLabFreeSprite(clSprite* sprite){
+    if(!sprite) return;
+
+    if(sprite->buffer){
+        for(int i = 0; i < sprite->dimensions.x * sprite->dimensions.y; i++){
+            free(sprite->buffer[i].character);
+        }
+        free(sprite->buffer);
+    }
+    free(sprite);
+}
+
+
+void ConsoleLabInit(){
+
+}
+
+void ConsoleLabClose(){
+
+}
+
+void ConsoleLabFlipBuffer(clWindow* window, clBuffer* buffer){
+    if(!buffer || !window) return;
+    ConsoleLabDrawBuffer(window, buffer);
+
+    if(buffer->currentBuffer == &buffer->buffers[0])
+        buffer->currentBuffer = &buffer->buffers[1];
+    else
+        buffer->currentBuffer = &buffer->buffers[0];
+}
+
+void ConsoleLabFPS(size_t targetFPS){
+
+}
+
+void DrawSpriteToSprite(clSprite* target, clSprite* source){
+    if(!target || !source || !target->buffer || !source->buffer){
+        return;
+    }
+
+    for(int y = 0; y < source->dimensions.y; y++){
+        for(int x = 0; x < source->dimensions.x; x++){
+
+            int targetX = source->position.x + x;
+            int targetY = source->position.y + y;
+
+            // clipping (czyli żeby nie wyjść poza buffer)
+            if(targetX < 0 || targetY < 0 ||
+               targetX >= target->dimensions.x ||
+               targetY >= target->dimensions.y){
+                continue;
+            }
+
+            int srcIndex = y * source->dimensions.x + x;
+            int dstIndex = targetY * target->dimensions.x + targetX;
+
+            target->buffer[dstIndex] = source->buffer[srcIndex];
+        }
+    }
+}
+
+void ConsoleLabDrawSprite(clBuffer* buffer, clSprite* sprite){
+    if(!buffer || !sprite) return;
+    DrawSpriteToSprite(buffer->currentBuffer, sprite);
+}
+>>>>>>> Stashed changes

@@ -27,14 +27,25 @@ int main(){
     clBuffer buffer = ConsoleLabCreateBuffer();
     clInput input = ConsoleLabCreateInputHandle();
     while(run){
+<<<<<<< Updated upstream
         ConsoleLabTick(&window, &input, &buffer);
         if(input.keys[KEY_ESC]){
             run = 0;
         }
         clSprite sprite = ConsoleLabCreateSprite("ascii art(without \ns because I want it to be handled by size when drawing)", input.mousePos, Vec2(5, 5));//if input string is bigger than size trim it  
+=======
+        printf("1");
+        ConsoleLabTick(window, input, buffer);
+        if(input->keys[KEY_ESC]){
+            run = 0;
+        }
+        printf("2");
+
+        clSprite* sprite = ConsoleLabCreateSprite("ascii art(without \ns because I want it to be handled by size when drawing)", input->mousePos, Vec2(5, 5));//if input string is bigger than size trim it  
+>>>>>>> Stashed changes
         ConsoleLabDrawSprite(buffer, sprite);
 
-        ConsoleLabFlipBuffer(buffer);//draws buffer to windows console
+        ConsoleLabFlipBuffer(window, buffer);//draws buffer to windows console
         ConsoleLabFPS(60);//target fps
     }
     ConsoleLabClose();
