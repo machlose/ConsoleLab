@@ -82,7 +82,7 @@ void clSpriteBufferPopulate(clSprite* sprite, char* buffer){
         p = getNextUnicodeChar(p);
         index++;
     }
-    return 0;
+    return;
 }
 
 int clSpriteCreateVec(clSprite* sprite, vec2 position, vec2 dimensions){
@@ -94,7 +94,7 @@ int clSpriteCreateVec(clSprite* sprite, vec2 position, vec2 dimensions){
     }
     return 0;
 }
-void GetSpriteFromCharSpriteMap(clSprite* destSprite,clSprite* spriteMap,int x, int y, int h, int w, int mapH, int mapW){
+void GetSpriteFromSpriteMap(clSprite* destSprite,clSprite* spriteMap,int x, int y, int h, int w, int mapH, int mapW){
     if(x < 0 || x+w > mapW){
         return;
     }
@@ -127,7 +127,7 @@ void WriteToSprite(clSprite* destSprite,clSprite* srcSprite){
 
     int index = 0;
     for(int y = srcSprite->position.y; y < srcSprite->position.y+srcSprite->dimensions.h;y++){
-        for(int x = srcSprite->position.x; y < srcSprite->position.x+srcSprite->dimensions.w;x++){
+        for(int x = srcSprite->position.x; x < srcSprite->position.x+srcSprite->dimensions.w;x++){
             destSprite->buffer[(y*destWidth)+x] = srcSprite->buffer[index];
             index++;
         }

@@ -49,10 +49,12 @@ int main(){
 
 
     clSprite sprite;
+    clSprite pawn;
     int len = RenderChessBoard(&sprite);
     char buffer[250000];
-    // RenderSpriteString(&sprite,buffer,len);
-    RenderSpriteString(&chessPieceSprite,buffer,444);
+    WriteToSprite(&sprite,&chessPieceSprite);
+    RenderSpriteString(&sprite,buffer,len);
+    // RenderSpriteString(&chessPieceSprite,buffer,444);
     printf(buffer);
     string test;
     stringUInit(&test,"███");

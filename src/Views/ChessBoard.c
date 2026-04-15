@@ -11,7 +11,7 @@ char* chessPieceBuffer =
 "   ▄████▄      ▄████▄      ▄████▄      ▄████▄      ▄████▄      ▄████▄     ";
 clSprite chessPieceSprite;
 void initChessPieceSprite(){
-    clSpriteCreate(&chessPieceSprite,0,0,73,6);
+    clSpriteCreate(&chessPieceSprite,0,0,74,6);
     clSpriteBufferPopulate(&chessPieceSprite,chessPieceBuffer);
 }
 
