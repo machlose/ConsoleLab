@@ -81,7 +81,7 @@ int main() {
         pawn.dimensions.height = 6;
         Sprite_AllocateBuffer(&pawn);
 
-        Sprite_DrawWStringWrapped(&pawn, 0, 0, U"                 ▄▄         ████         ██         ▄██▄       ██████   ", COL_BLACK, COL_WHITE);
+        Sprite_DrawWStringWrapped(&pawn, 0, 0, U"                 ▄▄         ████         ██         ▄██▄       ██████   ", COL_WHITE, 255);
         
         Sprite bg;
         bg.position = (vec3i){10, 5, 0};  // albo ręcznie .x=10 .y=5 .z=0
@@ -89,12 +89,12 @@ int main() {
         bg.dimensions.height = 6;
         Sprite_AllocateBuffer(&bg);
         
-        Sprite_DrawWStringWrapped(&bg, 0, 0, U"                                                                        ", COL_WHITE, COL_RED);
+        Sprite_DrawWStringWrapped(&bg, 0, 0, U"                                                                        ", COL_WHITE, COL_MAGENTA);
 
-        DrawToBuffer(&bg);
+        DrawToBufferOpaque(&bg);
         bg.position = (vec3i){22, 5, 0};
         Sprite_DrawWStringWrapped(&bg, 0, 0, U"                                                                        ", COL_BLACK, COL_WHITE);
-        DrawToBuffer(&bg);
+        DrawToBufferOpaque(&bg);
         DrawToBuffer(&pawn);
         
 

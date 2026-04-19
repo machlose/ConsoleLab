@@ -436,9 +436,14 @@ static inline void DrawSprite(Sprite* dst, Sprite* src) {
             if (dstX < 0 || dstY < 0 || dstX >= dst->dimensions.width || dstY >= dst->dimensions.height)
                 continue;
             Character* sc = Sprite_At(src, x, y);
-            // if (sc->character == 0) continue; // przezroczysty
-            if (sc->character == 0 || sc->character == U' ') continue; // przezroczysty
-            *Sprite_At(dst, dstX, dstY) = *sc;
+            Character* dc = Sprite_At(dst, dstX, dstY);
+            if (sc->character == 0 || sc->character == U' ') continue;
+
+            dc->character       = sc->character;
+            dc->foregroundColor = sc->foregroundColor;
+            // tlo kopiuj tylko jesli nie przezroczyste
+            if (sc->backgroundColor != 255)
+                dc->backgroundColor = sc->backgroundColor;
         }
     }
 }
@@ -503,6 +508,7 @@ static inline void ConsoleLab_Init_Ctx(ConsoleLabContext* ctx) {
     defaultPalette[6] = (Color){{0,  255,255,255}}; // cyan
     defaultPalette[7] = (Color){{255,0,  255,255}}; // magenta
     defaultPalette[8] = (Color){{128,128,128,255}}; // szary
+    defaultPalette[255] = (Color){{0,0,0,0}}; // transparent
     memcpy(ctx->colorPalette, defaultPalette, sizeof(ctx->colorPalette));
  
     memset(&ctx->input, 0, sizeof(ctx->input));
