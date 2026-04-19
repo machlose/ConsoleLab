@@ -3,7 +3,7 @@
 #include "ConsoleLab.h"
 #include "vec.c"
 
-typedef  unsigned char size8_t;
+typedef uint8_t size8_t;
 
 struct clChar{
     char* character;

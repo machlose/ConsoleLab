@@ -602,7 +602,7 @@ typedef enum ColorName{
     White_c,
     Black_c
 } ColorName;
-RGBA colorTable[512] = {
+RGBA colorTable[256] = {//256 bo int8
     (RGBA){.r=0,.g=0,.b=0,.a=0},
     (RGBA){.r=255,.g=255,.b=255,.a=1},
     (RGBA){.r=0,.g=0,.b=0,.a=1}

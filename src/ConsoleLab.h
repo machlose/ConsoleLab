@@ -53,7 +53,6 @@ struct clSprite{
     clChar* buffer;
 };
 
-
 clContext* clGlobalContext;
 clResult clGlobalResult;
 
