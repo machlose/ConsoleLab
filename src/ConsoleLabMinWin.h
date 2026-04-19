@@ -394,6 +394,77 @@ static inline void CL_DrawText(int x, int y, const char* text, uint8_t fg, uint8
 }
 
 
+static inline void Sprite_DrawWString(Sprite* sprite, int x, int y, const char32_t* str, uint8_t fg, uint8_t bg) {
+    int cx = x;
+    for (int i = 0; str[i] != U'\0'; i++, cx++) {
+        if (cx < 0 || cx >= sprite->dimensions.width) continue;
+        if (y  < 0 || y  >= sprite->dimensions.height) return;
+        Character* c = Sprite_At(sprite, cx, y);
+        c->character       = str[i];
+        c->foregroundColor = fg;
+        c->backgroundColor = bg;
+    }
+}
+
+static inline void Sprite_DrawWStringWrapped(Sprite* sprite, int startX, int startY, const char32_t* str, uint8_t fg, uint8_t bg) {
+    int x = startX;
+    int y = startY;
+    for (int i = 0; str[i] != U'\0'; i++) {
+        if (x >= sprite->dimensions.width) {
+            x = startX;
+            y++;
+        }
+        if (y >= sprite->dimensions.height) break;
+        if (x >= 0 && y >= 0) {
+            Character* c = Sprite_At(sprite, x, y);
+            c->character       = str[i];
+            c->foregroundColor = fg;
+            c->backgroundColor = bg;
+        }
+        x++;
+    }
+}
+
+// Znaki z characterem == 0 sa traktowane jako przezroczyste
+static inline void DrawSprite(Sprite* dst, Sprite* src) {
+    int offX = src->position.x;
+    int offY = src->position.y;
+    for (int y = 0; y < src->dimensions.height; y++) {
+        for (int x = 0; x < src->dimensions.width; x++) {
+            int dstX = x + offX;
+            int dstY = y + offY;
+            if (dstX < 0 || dstY < 0 || dstX >= dst->dimensions.width || dstY >= dst->dimensions.height)
+                continue;
+            Character* sc = Sprite_At(src, x, y);
+            // if (sc->character == 0) continue; // przezroczysty
+            if (sc->character == 0 || sc->character == U' ') continue; // przezroczysty
+            *Sprite_At(dst, dstX, dstY) = *sc;
+        }
+    }
+}
+ 
+// Wersja bez przezroczystosci - kopiuje wszystko lacznie z zerowymi znakami
+static inline void DrawSpriteOpaque(Sprite* dst, Sprite* src) {
+    int offX = src->position.x;
+    int offY = src->position.y;
+    for (int y = 0; y < src->dimensions.height; y++) {
+        for (int x = 0; x < src->dimensions.width; x++) {
+            int dstX = x + offX;
+            int dstY = y + offY;
+            if (dstX < 0 || dstY < 0 || dstX >= dst->dimensions.width || dstY >= dst->dimensions.height)
+                continue;
+            *Sprite_At(dst, dstX, dstY) = *Sprite_At(src, x, y);
+        }
+    }
+}
+ 
+static inline void DrawToBuffer(Sprite* src) {
+    DrawSprite(ConsoleLab_GlobalContext.buffer.current, src);
+}
+static inline void DrawToBufferOpaque(Sprite* src) {
+    DrawSpriteOpaque(ConsoleLab_GlobalContext.buffer.current, src);
+}
+ 
 
 static inline void ConsoleLab_Init_Ctx(ConsoleLabContext* ctx) {
     ctx->window.In  = GetStdHandle(STD_INPUT_HANDLE);

@@ -74,7 +74,30 @@ int main() {
             DrawChar(input->mousePosition.x, input->mousePosition.y,
                      U'█', COL_MAGENTA, COL_BLACK);
         }
- 
+        
+        Sprite pawn;
+        pawn.position = (vec3i){10, 5, 0};  // albo ręcznie .x=10 .y=5 .z=0
+        pawn.dimensions.width  = 12;
+        pawn.dimensions.height = 6;
+        Sprite_AllocateBuffer(&pawn);
+
+        Sprite_DrawWStringWrapped(&pawn, 0, 0, U"                 ▄▄         ████         ██         ▄██▄       ██████   ", COL_BLACK, COL_WHITE);
+        
+        Sprite bg;
+        bg.position = (vec3i){10, 5, 0};  // albo ręcznie .x=10 .y=5 .z=0
+        bg.dimensions.width  = 12;
+        bg.dimensions.height = 6;
+        Sprite_AllocateBuffer(&bg);
+        
+        Sprite_DrawWStringWrapped(&bg, 0, 0, U"                                                                        ", COL_WHITE, COL_RED);
+
+        DrawToBuffer(&bg);
+        bg.position = (vec3i){22, 5, 0};
+        Sprite_DrawWStringWrapped(&bg, 0, 0, U"                                                                        ", COL_BLACK, COL_WHITE);
+        DrawToBuffer(&bg);
+        DrawToBuffer(&pawn);
+        
+
         ConsoleLabFlipBuffer();
         frame++;
  
