@@ -230,24 +230,27 @@ static inline void Input_Update_Ctx(ConsoleLabContext* ctx) {
         input->keys[vk] = (GetAsyncKeyState(vk) & 0x8000) != 0;
     }
 
-    POINT pt;
-    GetCursorPos(&pt);
-    ScreenToClient(GetConsoleWindow(), &pt);
-    vec2i font = GetFontSize_Ctx(&ctx->window);
-    input->mousePosition.x = pt.x / font.width;
-    input->mousePosition.y = pt.y / font.height;
-    input->mouseDelta.x = input->mousePosition.x - prevMouse.x;
-    input->mouseDelta.y = input->mousePosition.y - prevMouse.y;
+    input->mouseDelta.x = 0;
+    input->mouseDelta.y = 0;
 
     DWORD numEvents = 0;
     GetNumberOfConsoleInputEvents(ctx->window.In, &numEvents);
+
     if (numEvents > 0) {
         INPUT_RECORD records[64];
         DWORD read = 0;
+
         ReadConsoleInput(ctx->window.In, records, 64, &read);
+
         for (DWORD i = 0; i < read; i++) {
             if (records[i].EventType == MOUSE_EVENT) {
                 MOUSE_EVENT_RECORD* me = &records[i].Event.MouseEvent;
+
+                input->mousePosition.x = me->dwMousePosition.X;
+                input->mousePosition.y = me->dwMousePosition.Y;
+                input->mouseDelta.x = input->mousePosition.x - prevMouse.x;
+                input->mouseDelta.y = input->mousePosition.y - prevMouse.y;
+
                 if (me->dwEventFlags == MOUSE_WHEELED) {
                     input->mouseWheel = ((short)HIWORD(me->dwButtonState)) > 0 ? 1 : -1;
                 }
@@ -508,11 +511,13 @@ static inline void ConsoleLab_Init_Ctx(ConsoleLabContext* ctx) {
     defaultPalette[6] = (Color){{0,  255,255,255}}; // cyan
     defaultPalette[7] = (Color){{255,0,  255,255}}; // magenta
     defaultPalette[8] = (Color){{128,128,128,255}}; // szary
-    defaultPalette[9] = (Color){{40, 40, 40, 255}}; // szary
-    defaultPalette[10] = (Color){{255,196,128,255}}; // szary
-    defaultPalette[11] = (Color){{212,212,220,255}};
-    defaultPalette[12] = (Color){{128,115,111,255}};
-    defaultPalette[13] = (Color){{128,255,128,255}};
+    defaultPalette[9] = (Color){{40, 40, 40, 255}}; // piece
+    defaultPalette[10] = (Color){{255,196,128,255}}; // piece
+    defaultPalette[11] = (Color){{212,212,220,255}};//field
+    defaultPalette[12] = (Color){{128,115,111,255}};//field
+    defaultPalette[13] = (Color){{128,255,128,255}};//legal move
+    defaultPalette[14] = (Color){{128,255,255,255}};
+
     defaultPalette[255] = (Color){{0,0,0,0}}; // transparent
     memcpy(ctx->colorPalette, defaultPalette, sizeof(ctx->colorPalette));
  
