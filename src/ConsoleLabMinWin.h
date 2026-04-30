@@ -508,6 +508,11 @@ static inline void ConsoleLab_Init_Ctx(ConsoleLabContext* ctx) {
     defaultPalette[6] = (Color){{0,  255,255,255}}; // cyan
     defaultPalette[7] = (Color){{255,0,  255,255}}; // magenta
     defaultPalette[8] = (Color){{128,128,128,255}}; // szary
+    defaultPalette[9] = (Color){{40, 40, 40, 255}}; // szary
+    defaultPalette[10] = (Color){{255,196,128,255}}; // szary
+    defaultPalette[11] = (Color){{212,212,220,255}};
+    defaultPalette[12] = (Color){{128,115,111,255}};
+    defaultPalette[13] = (Color){{128,255,128,255}};
     defaultPalette[255] = (Color){{0,0,0,0}}; // transparent
     memcpy(ctx->colorPalette, defaultPalette, sizeof(ctx->colorPalette));
  
