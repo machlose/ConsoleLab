@@ -186,7 +186,11 @@ int main() {
             for (size_t j = 0; j < 8; j++)
             {
                 swapColors = !swapColors;
-                Sprite_DrawWStringWrapped(&field, 0, 0, U"                                                                        ", COL_TRANSPARENT, swapColors ? COL_BLACK : COL_WHITE);
+                if(input->mousePosition.x>cells[i][j].x && input->mousePosition.x<cells[i][j].x+field.dimensions.width && input->mousePosition.y>cells[i][j].y && input->mousePosition.y<cells[i][j].y+field.dimensions.height){
+                    Sprite_DrawWStringWrapped(&field, 0, 0, U"                                                                        ", COL_TRANSPARENT, swapColors ? 13 : 13);
+                } else{
+                    Sprite_DrawWStringWrapped(&field, 0, 0, U"                                                                        ", COL_TRANSPARENT, swapColors ? COL_BLACK : COL_WHITE);
+                }
                 field.position = cells[i][j];
                 DrawToBufferOpaque(&field);
             }
