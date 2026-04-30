@@ -31,7 +31,7 @@ typedef struct {
 int main() {
     ConsoleLab_Init();
     
-    int playerX = 10, playerY = 5;
+    int playerX = 0, playerY = 0;
     int frame = 0;
     int cellSize = 6;
     bool swapColors = false;
@@ -212,7 +212,7 @@ int main() {
                 } else{
                     Sprite_DrawWStringWrapped(&field, 0, 0, U"                                                                        ", COL_TRANSPARENT, swapColors ? COL_BLACK : COL_WHITE);
                 }
-                field.position = cells[i][j];
+                field.position = (vec3i){cells[i][j].x+playerX, cells[i][j].y+playerY, 0};
                 DrawToBufferOpaque(&field);
             }
             swapColors = !swapColors;
